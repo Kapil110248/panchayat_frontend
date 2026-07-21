@@ -71,7 +71,7 @@ export default function AdminComplaints() {
       if (resolutionModal.photo) {
         const formDataUpload = new FormData();
         formDataUpload.append("file", resolutionModal.photo);
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+        const apiUrl = API_BASE_URL;
         const uploadRes = await fetch(`${apiUrl}/upload`, {
           method: "POST",
           headers: { "Authorization": `Bearer ${token}` },
@@ -157,7 +157,7 @@ export default function AdminComplaints() {
               {selectedComplaint.image_url && selectedComplaint.image_url !== "null" && (
                 <div>
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Attached Photo</label>
-                  <img src={selectedComplaint.image_url.startsWith('http') ? selectedComplaint.image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${selectedComplaint.image_url}`} alt="Complaint Attachment" className="w-full mt-1 max-h-60 object-cover rounded-xl border border-slate-200" />
+                  <img src={selectedComplaint.image_url.startsWith('http') ? selectedComplaint.image_url : `${BACKEND_URL}${selectedComplaint.image_url}`} alt="Complaint Attachment" className="w-full mt-1 max-h-60 object-cover rounded-xl border border-slate-200" />
                 </div>
               )}
               
@@ -169,7 +169,7 @@ export default function AdminComplaints() {
                   </div>
                   {selectedComplaint.resolution_image_url && selectedComplaint.resolution_image_url !== "null" && (
                     <div className="mb-4">
-                      <img src={selectedComplaint.resolution_image_url.startsWith('http') ? selectedComplaint.resolution_image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${selectedComplaint.resolution_image_url}`} alt="Resolution Proof" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
+                      <img src={selectedComplaint.resolution_image_url.startsWith('http') ? selectedComplaint.resolution_image_url : `${BACKEND_URL}${selectedComplaint.resolution_image_url}`} alt="Resolution Proof" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
                     </div>
                   )}
                 </div>
@@ -313,7 +313,7 @@ export default function AdminComplaints() {
                     {complaint.image_url && complaint.image_url !== "null" && (
                       <div className="mt-3">
                         <img 
-                          src={complaint.image_url.startsWith('http') ? complaint.image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${complaint.image_url}`} 
+                          src={complaint.image_url.startsWith('http') ? complaint.image_url : `${BACKEND_URL}${complaint.image_url}`} 
                           alt="Complaint Attachment" 
                           className="h-16 w-auto object-cover rounded-lg border border-slate-200" 
                         />

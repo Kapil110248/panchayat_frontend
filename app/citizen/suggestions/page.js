@@ -66,10 +66,10 @@ export default function CitizenSuggestions() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8 pb-28 md:pb-12 px-2 md:px-0">
       <div>
-        <h1 className="text-4xl font-black text-slate-900 mb-2">Citizen Suggestion Box</h1>
-        <p className="text-slate-500 font-medium">Submit ideas for village improvement, upvote ideas, and track implementation status.</p>
+        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">Citizen Suggestion Box</h1>
+        <p className="text-sm md:text-base text-slate-500 font-medium max-w-2xl">Submit ideas for village improvement, upvote ideas, and track implementation status.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

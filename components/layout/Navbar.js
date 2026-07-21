@@ -285,14 +285,14 @@ export function Navbar({ role, onMenuClick }) {
         </div>
       </div>
 
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-3 md:gap-5">
         <div className="hidden sm:flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-2xl border border-emerald-100 font-bold text-xs uppercase tracking-tighter shadow-sm">
           <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
           {role} Access
         </div>
         <div className="relative" ref={notifRef}>
-          <button onClick={() => setShowNotifications(!showNotifications)} className="relative p-3 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-2xl transition-all group">
-            <Bell className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+          <button onClick={() => setShowNotifications(!showNotifications)} className="relative text-slate-400 hover:text-primary hover:bg-primary/5 rounded-2xl transition-all group p-2 md:p-3">
+            <Bell className="group-hover:rotate-12 transition-transform w-5 h-5" />
             {unreadCount > 0 && (
               <span className="absolute top-3 right-3 w-4 h-4 bg-primary text-[8px] font-black text-white flex items-center justify-center rounded-full border-2 border-white">
                 {unreadCount > 9 ? "9+" : unreadCount}
@@ -326,7 +326,7 @@ export function Navbar({ role, onMenuClick }) {
                         <div className="flex gap-3">
                           <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 overflow-hidden ${!notif.is_read ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-slate-100 text-slate-400'}`}>
                             {notif.sender?.avatar_url ? (
-                               <img src={notif.sender.avatar_url.startsWith('http') ? notif.sender.avatar_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${notif.sender.avatar_url}`} alt="Sender" className="w-full h-full object-cover" />
+                               <img src={notif.sender.avatar_url.startsWith('http') ? notif.sender.avatar_url : `${BACKEND_URL}${notif.sender.avatar_url}`} alt="Sender" className="w-full h-full object-cover" />
                             ) : notif.type === 'complaint' ? <MessageSquare className="w-4 h-4" /> : 
                              notif.type === 'certificate' ? <FileText className="w-4 h-4" /> : 
                              notif.type === 'leave' ? <User className="w-4 h-4" /> : <Bell className="w-4 h-4" />}
@@ -355,7 +355,7 @@ export function Navbar({ role, onMenuClick }) {
           )}
         </div>
 
-        <div className="flex items-center gap-3 pl-5 border-l border-slate-200">
+        <div className="flex items-center gap-3 md:pl-5 md:border-l md:border-slate-200">
           <div className="text-right hidden xl:block">
             <p className="text-sm font-black text-slate-900 leading-none">{userName}</p>
             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
@@ -363,23 +363,16 @@ export function Navbar({ role, onMenuClick }) {
             </p>
           </div>
           <Link href={`/${role}/profile`} className="relative group cursor-pointer block">
-             <div className="w-12 h-12 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center border border-primary/20 p-1 group-hover:scale-105 transition-transform">
+             <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center border border-primary/20 p-1 group-hover:scale-105 transition-transform">
                 <div className="w-full h-full bg-white rounded-xl flex items-center justify-center overflow-hidden">
                    {userAvatar ? (
-                     <img src={userAvatar.startsWith('http') ? userAvatar : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${userAvatar}`} alt="Profile" className="w-full h-full object-cover" />
+                     <img src={userAvatar.startsWith('http') ? userAvatar : `${BACKEND_URL}${userAvatar}`} alt="Profile" className="w-full h-full object-cover" />
                    ) : (
-                     <User className="w-6 h-6 text-primary" />
+                     <User className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                    )}
                 </div>
              </div>
-             <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full" />
-          </Link>
-          <Link 
-            href="/logout" 
-            className="p-3 bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white rounded-2xl transition-all shadow-sm group border border-rose-100"
-            title="Logout"
-          >
-            <LogOut className="w-5 h-5" />
+             <div className="absolute -bottom-1 -right-1 w-3 h-3 md:w-4 md:h-4 bg-emerald-500 border-2 border-white rounded-full" />
           </Link>
         </div>
       </div>

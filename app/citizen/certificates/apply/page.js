@@ -100,7 +100,7 @@ export default function ApplyCertificate() {
     
     try {
       const token = localStorage.getItem("accessToken");
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+      const apiUrl = API_BASE_URL;
       
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
@@ -189,7 +189,7 @@ export default function ApplyCertificate() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-12 relative">
+    <div className="max-w-4xl mx-auto space-y-6 md:space-y-8 pb-32 md:pb-12 relative px-2 md:px-0">
       
       {/* Modern Error Toast/Banner */}
       {errorMsg && (
@@ -206,18 +206,21 @@ export default function ApplyCertificate() {
         </div>
       )}
 
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Certificate ke liye Apply Karein</h1>
-        <p className="text-slate-500 mt-2 text-lg">Apni jankari bharein aur required documents secure Cloudinary server par upload karein.</p>
+      <div className="mb-4 md:mb-8 flex flex-col md:text-center md:items-center px-2 md:px-0 mt-4 md:mt-0">
+        <div className="flex items-center gap-3 mb-1.5 md:justify-center">
+           <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary shrink-0"><FileText className="w-5 h-5"/></div>
+           <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight leading-tight">Apply for Certificate</h1>
+        </div>
+        <p className="text-slate-500 text-xs md:text-lg font-medium">Fill your details carefully. Documents will be uploaded to secure servers.</p>
       </div>
 
-      <Card className="rounded-[2rem] border-white shadow-xl shadow-slate-200/50 overflow-hidden">
-        <CardHeader title="Certificate Application Form" subtitle="Fill out the details carefully" className="bg-slate-50/50 border-b border-slate-100" />
-        <CardContent className="p-6 sm:p-8">
+      <Card className="rounded-[1.5rem] md:rounded-[2rem] border-white md:shadow-xl shadow-sm md:shadow-slate-200/50 overflow-hidden bg-white">
+        <CardHeader title="Certificate Application Form" subtitle="Fill out the details carefully" className="hidden md:block bg-slate-50/50 border-b border-slate-100" />
+        <CardContent className="p-4 sm:p-8 pt-6">
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Step 1: Certificate Type */}
             <div className="space-y-4">
-              <h4 className="text-lg font-black text-slate-900 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs">1</span> Certificate Type</h4>
+              <h4 className="text-[15px] md:text-lg font-black text-slate-900 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs">1</span> Certificate Type</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Select
                   label="Certificate ka Prakaar (Type)"
@@ -245,7 +248,7 @@ export default function ApplyCertificate() {
 
             {/* Step 2: Personal Details (Fixed for all) */}
             <div className="space-y-4">
-              <h4 className="text-lg font-black text-slate-900 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs">2</span> Personal Details</h4>
+              <h4 className="text-[15px] md:text-lg font-black text-slate-900 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs">2</span> Personal Details</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input label="Aadhar Number" name="aadhar_number" required onChange={handleInputChange} placeholder="0000 0000 0000" />
                 <Input label="Pura Naam (Full Name)" name="full_name" required onChange={handleInputChange} placeholder="Ex: Ramesh Kumar" />
@@ -441,13 +444,15 @@ export default function ApplyCertificate() {
               </div>
             </div>
 
-            <Button 
-              type="submit" 
-              disabled={loading || Object.keys(documents).length < REQUIRED_DOCUMENTS[type].length} 
-              className="w-full h-14 text-lg font-black rounded-2xl bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-500 shadow-xl shadow-indigo-500/20"
-            >
-              {loading ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Submitting securely...</> : "Submit Final Application"}
-            </Button>
+            <div className="fixed bottom-[68px] md:bottom-0 left-0 right-0 p-4 pb-6 bg-white/95 backdrop-blur-xl border-t border-slate-100 z-40 md:static md:p-0 md:bg-transparent md:border-none md:z-auto">
+               <Button 
+                 type="submit" 
+                 disabled={loading || Object.keys(documents).length < REQUIRED_DOCUMENTS[type].length} 
+                 className="w-full h-14 text-[15px] md:text-lg font-black rounded-2xl bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-500 shadow-xl shadow-indigo-500/20"
+               >
+                 {loading ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Submitting securely...</> : "Submit Final Application"}
+               </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

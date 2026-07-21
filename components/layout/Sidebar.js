@@ -99,19 +99,38 @@ const getLinks = (role) => {
 export function Sidebar({ role = "citizen", onClose }) {
   const pathname = usePathname();
   const [permissions, setPermissions] = useState([]);
+  const [userName, setUserName] = useState("Citizen");
+  const [villageName, setVillageName] = useState("Your Village");
+  const [userAvatar, setUserAvatar] = useState(null);
 
   useEffect(() => {
     try {
       const userStr = localStorage.getItem("user");
+      const name = localStorage.getItem("userName");
+      const avatar = localStorage.getItem("userAvatar");
+      
+      if (name) setUserName(name);
+      if (avatar) setUserAvatar(avatar);
+      
       if (userStr) {
         const userObj = JSON.parse(userStr);
         if (userObj.permissions) {
           setPermissions(userObj.permissions);
         }
+        if (userObj.full_name && !name) setUserName(userObj.full_name);
+        if (userObj.village) setVillageName(userObj.village);
+        if (userObj.avatar_url && !avatar) setUserAvatar(userObj.avatar_url);
       }
     } catch (e) {
       console.error(e);
     }
+
+    const handleAvatarUpdate = () => {
+      setUserAvatar(localStorage.getItem("userAvatar"));
+    };
+
+    window.addEventListener("avatarUpdated", handleAvatarUpdate);
+    return () => window.removeEventListener("avatarUpdated", handleAvatarUpdate);
   }, []);
 
   const rawLinks = getLinks(role);
@@ -125,9 +144,9 @@ export function Sidebar({ role = "citizen", onClose }) {
   });
 
   return (
-    <div className="w-72 glass border-r border-slate-200/50 h-screen sticky top-0 flex flex-col z-50">
-      <div className="p-8">
-        <div className="flex items-center gap-3 mb-12 select-none">
+    <div className="w-72 glass border-r border-slate-200/50 h-[100dvh] flex flex-col z-50">
+      <div className="p-6 md:p-8 shrink-0 pb-0">
+        <div className={`items-center gap-3 mb-10 select-none ${role === 'citizen' ? 'hidden lg:flex' : 'flex'}`}>
           <div className="relative">
             <div className="bg-primary w-11 h-11 rounded-2xl rotate-6 absolute inset-0 blur-lg opacity-40 animate-pulse pointer-events-none" />
             <div className="bg-gradient-to-br from-primary to-emerald-700 w-11 h-11 rounded-2xl flex items-center justify-center relative shadow-lg">
@@ -137,8 +156,27 @@ export function Sidebar({ role = "citizen", onClose }) {
           <span className="font-black text-2xl tracking-tight bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">GP-Digital</span>
         </div>
 
-        <nav className="space-y-1.5 overflow-y-auto max-h-[calc(100vh-280px)] pr-2 -mr-2 scrollbar-none relative z-10">
-          {links.map((link) => {
+        {role === 'citizen' && (
+          <div className="lg:hidden flex items-center gap-4 mb-8 mt-4 p-4 bg-slate-50/80 backdrop-blur-md rounded-[2rem] border border-slate-100/80 shadow-sm">
+             <div className="w-14 h-14 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center border border-primary/20 shrink-0 shadow-inner overflow-hidden">
+                {userAvatar ? (
+                  <img src={userAvatar} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <User className="w-6 h-6 text-primary" />
+                )}
+             </div>
+             <div>
+                <p className="text-sm font-black text-slate-900 leading-tight">{userName}</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1.5">
+                   {villageName.toLowerCase().includes('panchayat') || villageName.toLowerCase().includes('panchyat') || villageName.toLowerCase().includes('village') ? villageName : `${villageName} Village`}
+                </p>
+             </div>
+          </div>
+        )}
+      </div>
+
+      <nav className="flex-1 overflow-y-auto space-y-1.5 px-6 md:px-8 mt-6 pr-4 scrollbar-none relative z-10 pb-6 md:pb-0">
+        {links.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
             return (
@@ -162,20 +200,8 @@ export function Sidebar({ role = "citizen", onClose }) {
             );
           })}
         </nav>
-      </div>
 
-      <div className="mt-auto p-6 space-y-4 relative z-10">
-        <div className="p-4 bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2rem] text-white relative overflow-hidden group select-none shadow-xl">
-           <div className="relative z-10">
-              <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest mb-1">Local Support</p>
-              <h4 className="text-sm font-bold mb-3">Panchayat Helpline</h4>
-              <button className="w-full py-2 bg-white/10 backdrop-blur-md rounded-xl text-xs font-bold hover:bg-white/20 transition-all active:scale-95 cursor-pointer">
-                Call Secretary
-              </button>
-           </div>
-           <div className="absolute -right-4 -bottom-4 w-20 h-20 bg-primary/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
-        </div>
-
+      <div className="shrink-0 mt-auto p-6 space-y-4 relative z-10">
         <Link
           href="/logout"
           className="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-bold text-rose-500 hover:bg-rose-50 transition-all duration-300 group active:scale-95 cursor-pointer"

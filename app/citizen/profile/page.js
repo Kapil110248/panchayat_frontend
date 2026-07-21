@@ -140,7 +140,7 @@ export default function ProfilePage() {
       const fd = new FormData();
       fd.append('file', file);
       
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+      const apiUrl = API_BASE_URL;
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
@@ -264,7 +264,7 @@ export default function ProfilePage() {
       const fd = new FormData();
       fd.append('file', file);
       
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+      const apiUrl = API_BASE_URL;
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
@@ -303,7 +303,7 @@ export default function ProfilePage() {
       const fd = new FormData();
       fd.append('file', file);
       
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+      const apiUrl = API_BASE_URL;
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
@@ -352,7 +352,7 @@ export default function ProfilePage() {
       const fd = new FormData();
       fd.append('file', tempFile);
       
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+      const apiUrl = API_BASE_URL;
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
@@ -439,7 +439,7 @@ export default function ProfilePage() {
   const { user, profile, members } = profileData;
 
   return (
-    <div className="space-y-10 relative">
+    <div className="space-y-6 md:space-y-10 pb-28 md:pb-12 px-2 md:px-0 relative">
       {/* Toast Notification */}
       {toast.show && (
         <div className={`fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white font-medium ${toast.type === 'error' ? 'bg-rose-500' : 'bg-emerald-500'} flex items-center gap-2 animate-in slide-in-from-top-5`}>
@@ -449,17 +449,17 @@ export default function ProfilePage() {
       )}
 
       {/* Premium Header Profile */}
-      <div className="relative p-10 bg-white rounded-[3rem] premium-card overflow-hidden">
+      <div className="relative p-6 md:p-10 bg-white rounded-[2rem] md:rounded-[3rem] premium-card overflow-hidden shadow-sm md:shadow-md">
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
         
-        <div className="flex flex-col md:flex-row items-center gap-10 relative z-10">
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 relative z-10">
           <div className="relative group">
-            <div className="w-40 h-40 bg-slate-100 rounded-[3rem] p-1.5 shadow-2xl border-2 border-white group-hover:scale-105 transition-transform duration-500">
-               <div className="w-full h-full bg-white rounded-[2.5rem] flex items-center justify-center overflow-hidden relative">
+            <div className="w-28 h-28 md:w-40 md:h-40 bg-slate-100 rounded-[2rem] md:rounded-[3rem] p-1.5 shadow-2xl border-2 border-white group-hover:scale-105 transition-transform duration-500">
+               <div className="w-full h-full bg-white rounded-[1.5rem] md:rounded-[2.5rem] flex items-center justify-center overflow-hidden relative">
                   {user.avatar_url ? (
                     <img src={user.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    <User className="w-20 h-20 text-slate-200" />
+                    <User className="w-14 h-14 md:w-20 md:h-20 text-slate-200" />
                   )}
                   {uploadingAvatar && (
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-xs font-bold animate-pulse">
@@ -478,79 +478,79 @@ export default function ProfilePage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 text-emerald-700 rounded-xl text-[10px] font-black uppercase tracking-widest mb-3">
                <Shield className="w-3 h-3" /> Verified Citizen
             </div>
-            <h1 className="text-4xl font-black text-slate-900 tracking-tight">{user.full_name}</h1>
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 mt-4">
-              <span className="text-sm font-bold text-slate-400 flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-primary" /> {profile.village ? `Ward & Village ${profile.village}` : "Not Set"}
+            <h1 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tight">{user.full_name}</h1>
+            <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2 md:gap-6 mt-4">
+              <span className="text-xs md:text-sm font-bold text-slate-400 flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-primary shrink-0" /> <span className="line-clamp-1">{profile.village ? `Ward & Village ${profile.village}` : "Not Set"}</span>
               </span>
-              <span className="text-sm font-bold text-slate-400 flex items-center gap-2">
-                <Award className="w-4 h-4 text-emerald-500" /> Aadhaar Linked
+              <span className="text-xs md:text-sm font-bold text-slate-400 flex items-center gap-2">
+                <Award className="w-4 h-4 text-emerald-500 shrink-0" /> Aadhaar Linked
               </span>
             </div>
           </div>
 
-          <div className="flex gap-3 shrink-0">
-             <Button className="bg-slate-900 rounded-2xl gap-2 hover:bg-slate-800" onClick={() => setShowEditModal(true)}>
+          <div className="flex gap-3 shrink-0 w-full md:w-auto">
+             <Button className="w-full md:w-auto bg-slate-900 rounded-xl md:rounded-2xl gap-2 hover:bg-slate-800 h-12 md:h-10" onClick={() => setShowEditModal(true)}>
                <Edit3 className="w-4 h-4" /> Edit Profile
              </Button>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
-          <Card>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="lg:col-span-2 space-y-6 md:space-y-8">
+          <Card className="rounded-[1.5rem] md:rounded-[2rem]">
             <CardHeader title="Information Overview" subtitle="Official identity and contact synchronization" />
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-10">
-               <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 p-4 md:p-8 pt-0 md:pt-0">
+               <div className="space-y-2 md:space-y-4 p-4 md:p-6 bg-slate-50/50 rounded-[1.5rem] md:rounded-3xl border border-slate-100">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Aadhar Association</p>
-                  <p className="text-lg font-black text-slate-900">{profile.aadhaar_number}</p>
+                  <p className="text-base md:text-lg font-black text-slate-900">{profile.aadhaar_number}</p>
                   <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
                      <div className="bg-emerald-500 h-full w-full" />
                   </div>
                </div>
                
-               <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+               <div className="space-y-2 md:space-y-4 p-4 md:p-6 bg-slate-50/50 rounded-[1.5rem] md:rounded-3xl border border-slate-100">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Mobile Connectivity</p>
-                  <p className="text-lg font-black text-slate-900">{user.mobile || "Not Provided"}</p>
-                  {user.mobile && <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-tight italic">✓ Active for SMS Alerts</p>}
+                  <p className="text-base md:text-lg font-black text-slate-900">{user.mobile || "Not Provided"}</p>
+                  {user.mobile && <p className="text-[9px] md:text-[10px] text-emerald-600 font-bold uppercase tracking-tight italic">✓ Active for SMS Alerts</p>}
                </div>
 
-               <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+               <div className="space-y-2 md:space-y-4 p-4 md:p-6 bg-slate-50/50 rounded-[1.5rem] md:rounded-3xl border border-slate-100">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Father's Name</p>
-                  <p className="text-lg font-black text-slate-900">{profile.father_name || "Not Provided"}</p>
+                  <p className="text-base md:text-lg font-black text-slate-900">{profile.father_name || "Not Provided"}</p>
                </div>
 
-               <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+               <div className="space-y-2 md:space-y-4 p-4 md:p-6 bg-slate-50/50 rounded-[1.5rem] md:rounded-3xl border border-slate-100">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Email Sync</p>
-                  <p className="text-lg font-black text-slate-900">{user.email}</p>
+                  <p className="text-base md:text-lg font-black text-slate-900">{user.email}</p>
                </div>
 
-               <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+               <div className="space-y-2 md:space-y-4 p-4 md:p-6 bg-slate-50/50 rounded-[1.5rem] md:rounded-3xl border border-slate-100">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Date of Birth</p>
-                  <p className="text-lg font-black text-slate-900">
+                  <p className="text-base md:text-lg font-black text-slate-900">
                     {user.date_of_birth ? new Date(user.date_of_birth).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "Not Provided"}
                   </p>
                </div>
 
-               <div className="md:col-span-2 space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+               <div className="md:col-span-2 space-y-2 md:space-y-4 p-4 md:p-6 bg-slate-50/50 rounded-[1.5rem] md:rounded-3xl border border-slate-100">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Residential Landmark / Address</p>
-                  <p className="text-base font-bold text-slate-700 leading-relaxed uppercase tracking-tight">
+                  <p className="text-sm md:text-base font-bold text-slate-700 leading-relaxed uppercase tracking-tight">
                     {user.address || "No address details provided."}
                   </p>
                </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="rounded-[1.5rem] md:rounded-[2rem]">
             <CardHeader title="Household Circle" subtitle="Members linked to your official address" />
             <CardContent className="p-0">
                <div className="divide-y divide-slate-50">
                   {members && members.length > 0 ? (
                     members.map((member, i) => (
-                      <div key={i} onClick={() => handleOpenMemberDetails(member)} className="p-8 flex items-center justify-between hover:bg-slate-50/50 transition-colors group cursor-pointer">
-                        <div className="flex items-center gap-6">
-                          <div className="w-14 h-14 bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden flex items-center justify-center text-sm font-black text-slate-400 group-hover:border-primary/20 group-hover:rotate-6 transition-all shadow-sm shrink-0">
+                      <div key={i} onClick={() => handleOpenMemberDetails(member)} className="p-4 md:p-8 flex items-center justify-between hover:bg-slate-50/50 transition-colors group cursor-pointer">
+                        <div className="flex items-center gap-4 md:gap-6">
+                          <div className="w-12 h-12 md:w-14 md:h-14 bg-slate-50 border border-slate-100 rounded-[1rem] md:rounded-2xl overflow-hidden flex items-center justify-center text-sm font-black text-slate-400 group-hover:border-primary/20 group-hover:rotate-6 transition-all shadow-sm shrink-0">
                              {member.avatar_url ? (
                                <img src={member.avatar_url} alt={member.name} className="w-full h-full object-cover" />
                              ) : (
@@ -560,8 +560,8 @@ export default function ProfilePage() {
                              )}
                           </div>
                           <div>
-                             <p className="text-lg font-black text-slate-900">{member.name}</p>
-                             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">{member.relation} • {member.age} Years</p>
+                             <p className="text-base md:text-lg font-black text-slate-900 leading-tight">{member.name}</p>
+                             <p className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">{member.relation} • {member.age} Years</p>
                           </div>
                         </div>
                         <ChevronRight className="w-5 h-5 text-slate-200 group-hover:text-primary group-hover:translate-x-1 transition-all" />
@@ -582,22 +582,22 @@ export default function ProfilePage() {
           </Card>
         </div>
 
-        <div className="space-y-8">
-            <Card className="text-white border-none relative overflow-hidden" style={{ background: '#0f172a' }}>
+        <div className="space-y-6 md:space-y-8">
+            <Card className="text-white border-none relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem]" style={{ background: '#0f172a' }}>
                <CardHeader title="Digital Vault" titleClassName="text-white" subtitle="Manage your official certificates" subtitleClassName="text-slate-400" className="border-white/5" />
-               <CardContent className="space-y-4 relative z-10">
+               <CardContent className="space-y-3 md:space-y-4 relative z-10 p-4 md:p-8 pt-0 md:pt-0">
                   {vaultDocuments.length > 0 ? (
                     vaultDocuments.map((doc, i) => {
                       const IconComponent = doc.icon === "Shield" ? Shield : doc.icon === "Award" ? Award : doc.icon === "Camera" ? Camera : FileText;
                       return (
-                        <div key={i} className="flex items-center justify-between p-4 bg-white/5 backdrop-blur-xl rounded-[1.5rem] border border-white/5 hover:bg-white/10 transition-all group">
-                           <div onClick={() => doc.url && window.open(doc.url, '_blank')} className="flex items-center gap-4 min-w-0 cursor-pointer flex-1">
+                        <div key={i} className="flex items-center justify-between p-3 md:p-4 bg-white/5 backdrop-blur-xl rounded-xl md:rounded-[1.5rem] border border-white/5 hover:bg-white/10 transition-all group">
+                           <div onClick={() => doc.url && window.open(doc.url, '_blank')} className="flex items-center gap-3 md:gap-4 min-w-0 cursor-pointer flex-1">
                               <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 ${doc.color}`}>
-                                 <IconComponent className="w-5 h-5" />
+                                 <IconComponent className="w-4 h-4 md:w-5 md:h-5" />
                               </div>
-                              <span className="text-xs font-bold truncate">{doc.name}</span>
+                              <span className="text-[11px] md:text-xs font-bold truncate">{doc.name}</span>
                            </div>
-                           <div className="flex items-center gap-2">
+                           <div className="flex items-center gap-1 md:gap-2">
                              <span className="text-[8px] font-black uppercase tracking-tighter px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 shrink-0">
                                {doc.status}
                              </span>

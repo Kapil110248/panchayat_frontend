@@ -125,7 +125,7 @@ export default function AdminTaxes() {
       const token = localStorage.getItem("accessToken");
       const fd = new FormData();
       fd.append('file', file);
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+      const apiUrl = API_BASE_URL;
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },

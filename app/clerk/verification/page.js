@@ -90,7 +90,7 @@ export default function CertificateVerification() {
         const formData = new FormData();
         formData.append("file", issueFile);
         
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+        const apiUrl = API_BASE_URL;
         const uploadRes = await fetch(`${apiUrl}/upload`, {
           method: "POST",
           headers: { "Authorization": `Bearer ${token}` },

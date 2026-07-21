@@ -121,18 +121,27 @@ export default function CitizenGramSabha() {
   const activeMeeting = meetings.find(m => m.id === activeMeetingId);
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-4xl font-black text-slate-900 mb-2">Gram Sabha</h1>
-        <p className="text-slate-500 font-medium">Schedule checks, submit agenda suggestions, and read previous minutes.</p>
+    <div className="space-y-6 md:space-y-8 pb-28 md:pb-12 px-2 md:px-0">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
+        <div>
+          <h1 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">Gram Sabha</h1>
+          <p className="text-sm md:text-base text-slate-500 font-medium mt-2 max-w-2xl leading-relaxed">
+            Schedule checks, submit agenda suggestions, and read previous minutes.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left: Meeting list & Details */}
         <div className="lg:col-span-2 space-y-6">
-          <Card>
-            <CardHeader title="Schedules & Announcements" subtitle="Upcoming Gram Sabha meetings" />
-            <CardContent className="space-y-6">
+          <div className="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm md:shadow-xl shadow-slate-200/50">
+            <div className="flex items-center justify-between mb-6 md:mb-8">
+              <div>
+                <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Schedules & Announcements</h2>
+                <p className="text-xs md:text-sm text-slate-400 font-bold mt-1">Upcoming Gram Sabha meetings</p>
+              </div>
+            </div>
+            <div className="space-y-6">
               {loading ? (
                 <p className="text-center py-6 text-slate-400 font-medium">Loading meetings...</p>
               ) : meetings.filter(m => m.status === "scheduled" || m.status === "ongoing").length === 0 ? (
@@ -212,7 +221,7 @@ export default function CitizenGramSabha() {
                             const avatarUrl = sug.citizen?.avatar_url
                               ? (sug.citizen.avatar_url.startsWith('http')
                                   ? sug.citizen.avatar_url
-                                  : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${sug.citizen.avatar_url}`)
+                                  : `${BACKEND_URL}${sug.citizen.avatar_url}`)
                               : `https://api.dicebear.com/7.x/avataaars/svg?seed=${sug.citizen?.full_name || 'Citizen'}`;
 
                             return (
@@ -241,7 +250,7 @@ export default function CitizenGramSabha() {
                                       const replyAvatarUrl = reply.citizen?.avatar_url
                                         ? (reply.citizen.avatar_url.startsWith('http')
                                             ? reply.citizen.avatar_url
-                                            : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${reply.citizen.avatar_url}`)
+                                            : `${BACKEND_URL}${reply.citizen.avatar_url}`)
                                         : `https://api.dicebear.com/7.x/avataaars/svg?seed=${reply.citizen?.full_name || 'Citizen'}`;
 
                                       return (
@@ -288,8 +297,8 @@ export default function CitizenGramSabha() {
                   </div>
                 ))
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
         {/* Right: Suggestion Box */}
@@ -483,7 +492,7 @@ export default function CitizenGramSabha() {
                           const avatarUrl = sug.citizen?.avatar_url
                             ? (sug.citizen.avatar_url.startsWith('http')
                                 ? sug.citizen.avatar_url
-                                : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${sug.citizen.avatar_url}`)
+                                : `${BACKEND_URL}${sug.citizen.avatar_url}`)
                             : `https://api.dicebear.com/7.x/avataaars/svg?seed=${sug.citizen?.full_name || 'Citizen'}`;
 
                           return (
@@ -512,7 +521,7 @@ export default function CitizenGramSabha() {
                                     const replyAvatarUrl = reply.citizen?.avatar_url
                                       ? (reply.citizen.avatar_url.startsWith('http')
                                           ? reply.citizen.avatar_url
-                                          : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${reply.citizen.avatar_url}`)
+                                          : `${BACKEND_URL}${reply.citizen.avatar_url}`)
                                       : `https://api.dicebear.com/7.x/avataaars/svg?seed=${reply.citizen?.full_name || 'Citizen'}`;
 
                                     return (

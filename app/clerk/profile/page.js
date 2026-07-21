@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { api } from "@/lib/api";
 
-const BACKEND = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : "https://panchayat-backend-0aqf.onrender.com";
+const BACKEND = BACKEND_URL;
 
 export default function ClerkProfile() {
   const [profile, setProfile] = useState(null);

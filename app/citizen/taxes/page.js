@@ -105,7 +105,7 @@ export default function CitizenTaxes() {
       const signatureUrl = pInfo?.signature_url || "";
       const backendUrl = process.env.NEXT_PUBLIC_API_URL 
         ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') 
-        : 'https://panchayat-backend-0aqf.onrender.com';
+        : BACKEND_URL + '';
       const fullSignatureUrl = signatureUrl 
         ? (signatureUrl.startsWith('http') ? signatureUrl : `${backendUrl}${signatureUrl}`)
         : '';
@@ -275,10 +275,10 @@ export default function CitizenTaxes() {
   const paidTaxes = taxes.filter(t => t.status === "paid");
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8 pb-28 md:pb-12 px-2 md:px-0">
       <div>
-        <h1 className="text-4xl font-black text-slate-900 mb-2">Tax Payment Center</h1>
-        <p className="text-slate-500 font-medium">Verify pending house/water taxes and download payment receipts.</p>
+        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">Tax Payment Center</h1>
+        <p className="text-sm md:text-base text-slate-500 font-medium">Verify pending house/water taxes and download payment receipts.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

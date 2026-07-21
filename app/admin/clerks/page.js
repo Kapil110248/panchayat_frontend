@@ -449,7 +449,7 @@ export default function ClerkManagement() {
               </button>
               <div className="flex items-center gap-4">
                 {viewClerk.avatar_url ? (
-                  <img src={viewClerk.avatar_url.startsWith('http') ? viewClerk.avatar_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${viewClerk.avatar_url}`} alt="avatar" className="w-16 h-16 rounded-2xl object-cover shadow-lg border-2 border-white/20" />
+                  <img src={viewClerk.avatar_url.startsWith('http') ? viewClerk.avatar_url : `${BACKEND_URL}${viewClerk.avatar_url}`} alt="avatar" className="w-16 h-16 rounded-2xl object-cover shadow-lg border-2 border-white/20" />
                 ) : (
                   <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-white text-2xl font-black shadow-inner border border-white/20">
                     {viewClerk.name.split(' ').map(n => n[0]).join('')}
@@ -564,10 +564,10 @@ export default function ClerkManagement() {
                 <div className="flex items-center justify-between mb-4">
                    {clerk.avatar_url ? (
                      <img 
-                        src={clerk.avatar_url.startsWith('http') ? clerk.avatar_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${clerk.avatar_url}`} 
+                        src={clerk.avatar_url.startsWith('http') ? clerk.avatar_url : `${BACKEND_URL}${clerk.avatar_url}`} 
                         alt={clerk.name} 
                         className="w-12 h-12 rounded-2xl object-cover shadow-sm cursor-pointer hover:opacity-80 transition-opacity" 
-                        onClick={() => setViewImageModal({ show: true, url: clerk.avatar_url.startsWith('http') ? clerk.avatar_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${clerk.avatar_url}` })}
+                        onClick={() => setViewImageModal({ show: true, url: clerk.avatar_url.startsWith('http') ? clerk.avatar_url : `${BACKEND_URL}${clerk.avatar_url}` })}
                      />
                    ) : (
                      <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center font-bold text-lg text-slate-400">

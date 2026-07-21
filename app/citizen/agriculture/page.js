@@ -251,57 +251,57 @@ export default function CitizenAgriculture() {
   });
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-6 md:space-y-8 pb-28 md:pb-12 px-2 md:px-0 max-w-7xl mx-auto">
       {/* Header section with modern badge & gradient text */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-transparent p-8 rounded-3xl border border-emerald-500/10">
-        <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+      <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-transparent p-6 md:p-8 rounded-[2rem] md:rounded-3xl border border-emerald-500/10">
+        <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none hidden md:block">
           <Sprout className="w-32 h-32 text-emerald-600 animate-pulse" />
         </div>
         <div className="relative z-10 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-full text-xs font-black uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest">
             <Sparkles className="w-3 h-3" /> Krishi Kalyan Portal
           </div>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
             Agriculture Help Center
           </h1>
-          <p className="text-slate-500 font-medium max-w-2xl text-sm leading-relaxed">
+          <p className="text-sm md:text-base text-slate-500 font-medium max-w-2xl leading-relaxed">
             Panchayat Krishi Seva Portal. Get live mandi wholesale prices, detailed crop guide lookup, active subsidies, and crop advice.
           </p>
         </div>
       </div>
 
       {/* Main Tab Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-50 p-4 rounded-3xl border border-slate-100">
-        <div className="flex flex-wrap gap-2 bg-slate-200/60 p-1.5 rounded-2xl w-fit">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-50 p-4 rounded-3xl border border-slate-100">
+        <div className="flex flex-col md:flex-row w-full md:w-auto gap-2 bg-slate-200/60 p-1.5 rounded-2xl">
           <button
             onClick={() => setActivePortalTab("schemes")}
-            className={`px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-2 ${
+            className={`flex-1 md:flex-none px-3 md:px-5 py-2.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 ${
               activePortalTab === "schemes"
                 ? "bg-white text-slate-800 shadow-sm"
-                : "text-slate-400 hover:text-slate-600"
+                : "text-slate-500 hover:text-slate-700 hover:bg-white/50"
             }`}
           >
-            <ClipboardList className="w-4 h-4" /> Schemes & Advisory
+            <ClipboardList className="w-4 h-4 hidden sm:block" /> Schemes & Advisory
           </button>
           <button
             onClick={() => setActivePortalTab("encyclopedia")}
-            className={`px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-2 ${
+            className={`flex-1 md:flex-none px-3 md:px-5 py-2.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 ${
               activePortalTab === "encyclopedia"
                 ? "bg-white text-slate-800 shadow-sm"
-                : "text-slate-400 hover:text-slate-600"
+                : "text-slate-500 hover:text-slate-700 hover:bg-white/50"
             }`}
           >
-            <BookOpen className="w-4 h-4" /> Crop Encyclopedia
+            <BookOpen className="w-4 h-4 hidden sm:block" /> Crop Encyclopedia
           </button>
           <button
             onClick={() => setActivePortalTab("mandi")}
-            className={`px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-2 ${
+            className={`flex-1 md:flex-none px-3 md:px-5 py-2.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 ${
               activePortalTab === "mandi"
                 ? "bg-white text-slate-800 shadow-sm"
-                : "text-slate-400 hover:text-slate-600"
+                : "text-slate-500 hover:text-slate-700 hover:bg-white/50"
             }`}
           >
-            <TrendingUp className="w-4 h-4" /> Live Mandi Prices
+            <TrendingUp className="w-4 h-4 hidden sm:block" /> Live Mandi Prices
           </button>
         </div>
         <span className="text-xs text-slate-400 font-bold bg-white px-4 py-2.5 rounded-2xl border border-slate-100">

@@ -202,11 +202,11 @@ export default function SchemesPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-6 pb-28 md:pb-12 px-2 md:px-0">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Government Schemes</h1>
-          <p className="text-slate-500">Sarkari yojnaon ka labh uthayein</p>
+          <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Government Schemes</h1>
+          <p className="text-sm md:text-base text-slate-500 font-medium mt-1">Sarkari yojnaon ka labh uthayein</p>
         </div>
         <div className="flex bg-white p-1 rounded-lg border border-border">
           <button onClick={() => setActiveTab("All")} className={`px-4 py-1.5 text-sm font-medium rounded-md shadow-sm transition-colors ${activeTab === 'All' ? 'bg-primary text-white' : 'text-slate-600 hover:text-primary'}`}>All Schemes</button>
@@ -299,7 +299,7 @@ export default function SchemesPage() {
                                     
                                     try {
                                       const token = localStorage.getItem("accessToken");
-                                      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+                                      const apiUrl = API_BASE_URL;
                                       const res = await fetch(`${apiUrl}/upload`, {
                                         method: 'POST',
                                         headers: { 'Authorization': `Bearer ${token}` },

@@ -32,7 +32,7 @@ export default function NewComplaint() {
       if (photo) {
         const formDataUpload = new FormData();
         formDataUpload.append("file", photo);
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+        const apiUrl = API_BASE_URL;
         const uploadRes = await fetch(`${apiUrl}/upload`, {
           method: "POST",
           headers: { "Authorization": `Bearer ${token}` },
@@ -74,15 +74,15 @@ export default function NewComplaint() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-slate-900">Shikayat (Complaint) Karein</h1>
-        <p className="text-slate-500">Gaav ki kisi bhi samasya ko hum tak pahuchayein</p>
+    <div className="max-w-3xl mx-auto space-y-6 pb-28 md:pb-12 px-2 md:px-0">
+      <div className="text-center mb-6 md:mb-8 bg-white/50 backdrop-blur-xl p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm md:shadow-xl shadow-slate-200/50">
+        <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Shikayat (Complaint) Karein</h1>
+        <p className="text-sm md:text-base text-slate-500 font-medium mt-1">Gaav ki kisi bhi samasya ko hum tak pahuchayein</p>
       </div>
 
-      <Card>
+      <Card className="rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-sm md:shadow-lg border-slate-100">
         <CardHeader title="Complaint Details" />
-        <CardContent>
+        <CardContent className="p-4 md:p-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Select

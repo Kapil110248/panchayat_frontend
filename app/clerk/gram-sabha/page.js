@@ -387,7 +387,7 @@ export default function ClerkGramSabha() {
                         try {
                           const formData = new FormData();
                           formData.append("file", file);
-                          const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+                          const apiUrl = API_BASE_URL;
                           const res = await fetch(`${apiUrl}/upload`, {
                             method: "POST",
                             body: formData

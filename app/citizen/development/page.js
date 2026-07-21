@@ -47,72 +47,72 @@ export default function CitizenDevelopment() {
   const completedProjects = projects.filter(p => p.status === "completed");
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8 pb-28 md:pb-12 px-2 md:px-0">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-black text-slate-900 mb-2">Development Works</h1>
-          <p className="text-slate-500 font-medium">Track ongoing development projects, view visual progress, and audit completed public works.</p>
+          <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-2">Development Works</h1>
+          <p className="text-sm md:text-base text-slate-500 font-medium">Track ongoing development projects, view visual progress, and audit completed public works.</p>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="p-6 !bg-slate-900 text-white border-0 shadow-lg shadow-slate-900/10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+        <Card className="p-4 md:p-6 !bg-slate-900 text-white border-0 shadow-lg shadow-slate-900/10">
           <div className="flex items-center justify-between mb-2">
-            <Building2 className="w-8 h-8 opacity-80 text-indigo-400" />
-            <span className="text-3xl font-black">{stats.total}</span>
+            <Building2 className="w-6 h-6 md:w-8 md:h-8 opacity-80 text-indigo-400" />
+            <span className="text-2xl md:text-3xl font-black">{stats.total}</span>
           </div>
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Projects</p>
+          <p className="text-[9px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Total Projects</p>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20">
+        <Card className="p-4 md:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20">
           <div className="flex items-center justify-between mb-2">
-            <Hammer className="w-8 h-8 opacity-80" />
-            <span className="text-3xl font-black">{stats.active}</span>
+            <Hammer className="w-6 h-6 md:w-8 md:h-8 opacity-80" />
+            <span className="text-2xl md:text-3xl font-black">{stats.active}</span>
           </div>
-          <p className="text-xs font-bold text-blue-100 uppercase tracking-widest">Active Works</p>
+          <p className="text-[9px] md:text-xs font-bold text-blue-100 uppercase tracking-widest">Active Works</p>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white border-0 shadow-lg shadow-emerald-500/20">
+        <Card className="p-4 md:p-6 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white border-0 shadow-lg shadow-emerald-500/20">
           <div className="flex items-center justify-between mb-2">
-            <CheckCircle2 className="w-8 h-8 opacity-80" />
-            <span className="text-3xl font-black">{stats.completed}</span>
+            <CheckCircle2 className="w-6 h-6 md:w-8 md:h-8 opacity-80" />
+            <span className="text-2xl md:text-3xl font-black">{stats.completed}</span>
           </div>
-          <p className="text-xs font-bold text-emerald-100 uppercase tracking-widest">Completed</p>
+          <p className="text-[9px] md:text-xs font-bold text-emerald-100 uppercase tracking-widest">Completed</p>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-amber-500 to-amber-600 text-white border-0 shadow-lg shadow-amber-500/20">
+        <Card className="p-4 md:p-6 bg-gradient-to-br from-amber-500 to-amber-600 text-white border-0 shadow-lg shadow-amber-500/20">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xl font-black">₹</span>
-            <span className="text-3xl font-black">{(stats.budget / 100000).toFixed(1)}L</span>
+            <span className="text-lg md:text-xl font-black">₹</span>
+            <span className="text-2xl md:text-3xl font-black">{(stats.budget / 100000).toFixed(1)}L</span>
           </div>
-          <p className="text-xs font-bold text-amber-100 uppercase tracking-widest">Budget Allocated</p>
+          <p className="text-[9px] md:text-xs font-bold text-amber-100 uppercase tracking-widest">Budget Allocated</p>
         </Card>
       </div>
 
       {/* Tabs for Separation */}
-      <div className="flex border-b border-slate-100 gap-2">
+      <div className="flex flex-wrap border-b border-slate-100 gap-2">
         <button
           onClick={() => setActiveTab("active")}
-          className={`px-6 py-3 font-bold text-sm transition-all border-b-2 flex items-center gap-2 ${
+          className={`px-4 md:px-6 py-2 md:py-3 font-bold text-xs md:text-sm transition-all border-b-2 flex items-center gap-2 ${
             activeTab === "active"
               ? "border-blue-600 text-blue-600 bg-blue-50/30"
               : "border-transparent text-slate-500 hover:text-slate-900"
           }`}
         >
           <Hammer className="w-4 h-4" />
-          <span>Ongoing & Active Works ({stats.active})</span>
+          <span>Ongoing ({stats.active})</span>
         </button>
         <button
           onClick={() => setActiveTab("completed")}
-          className={`px-6 py-3 font-bold text-sm transition-all border-b-2 flex items-center gap-2 ${
+          className={`px-4 md:px-6 py-2 md:py-3 font-bold text-xs md:text-sm transition-all border-b-2 flex items-center gap-2 ${
             activeTab === "completed"
               ? "border-emerald-600 text-emerald-600 bg-emerald-50/30"
               : "border-transparent text-slate-500 hover:text-slate-900"
           }`}
         >
           <CheckCircle2 className="w-4 h-4" />
-          <span>Completed Works ({stats.completed})</span>
+          <span>Completed ({stats.completed})</span>
         </button>
       </div>
 

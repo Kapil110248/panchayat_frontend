@@ -120,11 +120,11 @@ export default function AdminDirectory() {
                           e.stopPropagation();
                           const imgUrl = c.avatar_url || c.profile?.avatar_url;
                           if (imgUrl) {
-                            setSelectedImage(imgUrl.startsWith('http') ? imgUrl : `https://panchayat-backend-0aqf.onrender.com${imgUrl}`);
+                            setSelectedImage(imgUrl.startsWith('http') ? imgUrl : `${BACKEND_URL}${imgUrl}`);
                           }
                         }} className={`w-10 h-10 bg-gradient-to-br from-violet-500 to-indigo-500 rounded-xl flex items-center justify-center text-white text-xs font-black overflow-hidden ${(c.avatar_url || c.profile?.avatar_url) ? 'cursor-pointer hover:scale-105 transition-transform' : ''} print:hidden`}>
                           {c.avatar_url || c.profile?.avatar_url ? (
-                            <img src={(c.avatar_url || c.profile?.avatar_url).startsWith('http') ? (c.avatar_url || c.profile?.avatar_url) : `https://panchayat-backend-0aqf.onrender.com${c.avatar_url || c.profile?.avatar_url}`} alt={c.full_name} className="w-full h-full object-cover" />
+                            <img src={(c.avatar_url || c.profile?.avatar_url).startsWith('http') ? (c.avatar_url || c.profile?.avatar_url) : `${BACKEND_URL}${c.avatar_url || c.profile?.avatar_url}`} alt={c.full_name} className="w-full h-full object-cover" />
                           ) : (
                             c.full_name?.charAt(0) || "?"
                           )}
@@ -199,7 +199,7 @@ export default function AdminDirectory() {
                     <img 
                       src={(selectedCitizen.avatar_url || selectedCitizen.profile?.avatar_url).startsWith('http') 
                         ? (selectedCitizen.avatar_url || selectedCitizen.profile?.avatar_url) 
-                        : `https://panchayat-backend-0aqf.onrender.com${selectedCitizen.avatar_url || selectedCitizen.profile?.avatar_url}`} 
+                        : `${BACKEND_URL}${selectedCitizen.avatar_url || selectedCitizen.profile?.avatar_url}`} 
                       alt={selectedCitizen.full_name} 
                       className="w-full h-full object-cover" 
                     />
@@ -297,7 +297,7 @@ export default function AdminDirectory() {
                             >
                               <div className="w-8 h-8 bg-violet-100 text-violet-700 rounded-lg flex items-center justify-center font-black text-xs overflow-hidden shrink-0">
                                 {avatar ? (
-                                  <img src={avatar.startsWith('http') ? avatar : `https://panchayat-backend-0aqf.onrender.com${avatar}`} alt={name} className="w-full h-full object-cover" />
+                                  <img src={avatar.startsWith('http') ? avatar : `${BACKEND_URL}${avatar}`} alt={name} className="w-full h-full object-cover" />
                                 ) : (
                                   name.charAt(0) || "?"
                                 )}
@@ -334,7 +334,7 @@ export default function AdminDirectory() {
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {vaultDocs.map((d, index) => {
-                        const fileUrl = d.url ? (d.url.startsWith('http') ? d.url : `https://panchayat-backend-0aqf.onrender.com${d.url}`) : '';
+                        const fileUrl = d.url ? (d.url.startsWith('http') ? d.url : `${BACKEND_URL}${d.url}`) : '';
                         return (
                           <div 
                             key={index} 
@@ -393,7 +393,7 @@ export default function AdminDirectory() {
                     <img 
                       src={(selectedFamilyMember.avatar_url || selectedFamilyMember.profile?.avatar_url).startsWith('http') 
                         ? (selectedFamilyMember.avatar_url || selectedFamilyMember.profile?.avatar_url) 
-                        : `https://panchayat-backend-0aqf.onrender.com${selectedFamilyMember.avatar_url || selectedFamilyMember.profile?.avatar_url}`} 
+                        : `${BACKEND_URL}${selectedFamilyMember.avatar_url || selectedFamilyMember.profile?.avatar_url}`} 
                       alt={selectedFamilyMember.full_name || selectedFamilyMember.name} 
                       className="w-full h-full object-cover" 
                     />

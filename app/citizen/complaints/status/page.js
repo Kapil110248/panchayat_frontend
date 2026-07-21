@@ -56,11 +56,11 @@ export default function MyComplaints() {
     }
   };
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div className="space-y-6 md:space-y-8 pb-28 md:pb-12 px-2 md:px-0">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6 bg-white/50 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none p-6 md:p-0 rounded-[2rem] md:rounded-none border border-slate-100 md:border-none shadow-sm md:shadow-none">
         <div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight">Meri <span className="text-primary">Shikayatein</span></h1>
-          <p className="text-slate-500 font-medium mt-1">Track the status of your reported village issues.</p>
+          <h1 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tight">Meri <span className="text-primary">Shikayatein</span></h1>
+          <p className="text-sm md:text-base text-slate-500 font-medium mt-1">Track the status of your reported village issues.</p>
         </div>
         <Link href="/citizen/complaints/new">
           <Button className="gap-2 bg-slate-900 rounded-2xl"><MessageSquare className="w-4 h-4" /> New Complaint</Button>
@@ -73,21 +73,21 @@ export default function MyComplaints() {
         ) : complaints.length === 0 ? (
           <div className="py-20 text-center text-slate-500 font-medium">No complaints found.</div>
         ) : complaints.map((complaint) => (
-          <Card key={complaint.id} className={complaint.urgent ? "border-l-4 border-l-rose-500" : ""}>
-            <CardContent className="p-8">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                <div className="flex items-center gap-6 flex-1">
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${
+          <Card key={complaint.id} className={`rounded-[1.5rem] md:rounded-3xl ${complaint.urgent ? "border-l-4 border-l-rose-500" : ""}`}>
+            <CardContent className="p-4 md:p-8">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8">
+                <div className="flex items-center gap-4 md:gap-6 flex-1">
+                  <div className={`w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 ${
                     complaint.status === 'Open' ? 'bg-rose-50 text-rose-600' : 
                     complaint.status === 'Resolved' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'
                   }`}>
-                    <MessageSquare className="w-8 h-8" />
+                    <MessageSquare className="w-6 h-6 md:w-8 md:h-8" />
                   </div>
                   <div>
-                    <div className="flex items-center gap-3 mb-1">
-                       <h4 className="text-xl font-black text-slate-900">{complaint.title}</h4>
-                       <span className="text-[10px] bg-slate-100 px-3 py-1 rounded-full text-slate-500 font-black uppercase tracking-widest">{complaint.category}</span>
-                       {complaint.urgent && <span className="text-[10px] bg-rose-500 text-white px-2 py-1 rounded-xl font-black uppercase tracking-tighter">URGENT</span>}
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                       <h4 className="text-lg md:text-xl font-black text-slate-900 leading-tight">{complaint.title}</h4>
+                       <span className="text-[9px] md:text-[10px] bg-slate-100 px-2 py-0.5 md:px-3 md:py-1 rounded-full text-slate-500 font-black uppercase tracking-widest">{complaint.category}</span>
+                       {complaint.urgent && <span className="text-[9px] md:text-[10px] bg-rose-500 text-white px-2 py-0.5 md:px-2 md:py-1 rounded-full font-black uppercase tracking-tighter">URGENT</span>}
                     </div>
                     <p className="text-sm text-slate-400 font-bold">Ref ID: {complaint.id} • Posted on {complaint.date}</p>
                   </div>
@@ -130,7 +130,7 @@ export default function MyComplaints() {
                 {selectedComplaint.image_url && selectedComplaint.image_url !== "null" && (
                   <div>
                     <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Attached Photo</h4>
-                    <img src={selectedComplaint.image_url.startsWith('http') ? selectedComplaint.image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${selectedComplaint.image_url}`} alt="Complaint Attachment" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
+                    <img src={selectedComplaint.image_url.startsWith('http') ? selectedComplaint.image_url : `${BACKEND_URL}${selectedComplaint.image_url}`} alt="Complaint Attachment" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
                   </div>
                 )}
                 
@@ -166,7 +166,7 @@ export default function MyComplaints() {
                     </div>
                     {selectedComplaint.resolution_image_url && selectedComplaint.resolution_image_url !== "null" && (
                       <div className="mb-4">
-                        <img src={selectedComplaint.resolution_image_url.startsWith('http') ? selectedComplaint.resolution_image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${selectedComplaint.resolution_image_url}`} alt="Resolution Proof" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
+                        <img src={selectedComplaint.resolution_image_url.startsWith('http') ? selectedComplaint.resolution_image_url : `${BACKEND_URL}${selectedComplaint.resolution_image_url}`} alt="Resolution Proof" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
                       </div>
                     )}
                     <Button onClick={() => handleConfirmResolution(selectedComplaint.real_id)} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg shadow-emerald-200 py-6 font-bold">

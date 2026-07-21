@@ -66,17 +66,17 @@ export default function CitizenRation() {
   };
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-6 md:space-y-8 pb-28 md:pb-12 px-2 md:px-0 max-w-7xl mx-auto">
       {/* Header section with modern badge & gradient text */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-transparent p-8 rounded-3xl border border-emerald-500/10">
-        <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+      <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-transparent p-6 md:p-8 rounded-[2rem] md:rounded-3xl border border-emerald-500/10">
+        <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none hidden md:block">
           <ShoppingBag className="w-32 h-32 text-emerald-600" />
         </div>
         <div className="relative z-10 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-full text-xs font-black uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest">
             <Sparkles className="w-3 h-3" /> PDS Portal
           </div>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
             Ration Distribution
           </h1>
           <p className="text-slate-500 font-medium max-w-2xl text-sm leading-relaxed">
@@ -87,16 +87,16 @@ export default function CitizenRation() {
 
       {/* My Ration Entitlement - backend data */}
       {quota && (
-        <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-3xl p-6 text-white shadow-xl shadow-emerald-500/20">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-[2rem] md:rounded-3xl p-6 text-white shadow-xl shadow-emerald-500/20">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
             <div>
-              <p className="text-emerald-200 text-xs font-black uppercase tracking-widest mb-1">Aapka Ration Card</p>
+              <p className="text-emerald-200 text-[10px] md:text-xs font-black uppercase tracking-widest mb-1">Aapka Ration Card</p>
               <h2 className="text-2xl font-black tracking-tight">{quota.card_number}</h2>
-              <span className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black border bg-white/20 border-white/30 ${cardTypeBadge(quota.card_type)}`}>
+              <span className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] md:text-xs font-black border bg-white/20 border-white/30 ${cardTypeBadge(quota.card_type)}`}>
                 {quota.card_type} Card
               </span>
             </div>
-            <div className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-2xl px-4 py-3">
+            <div className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 self-start">
               <Users className="w-5 h-5 text-emerald-200" />
               <div>
                 <p className="text-emerald-200 text-[10px] font-black uppercase tracking-wider">Family Size</p>

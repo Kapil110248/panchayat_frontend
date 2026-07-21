@@ -44,10 +44,10 @@ export default function CitizenWaterSupply() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8 pb-28 md:pb-12 px-2 md:px-0">
       <div>
-        <h1 className="text-4xl font-black text-slate-900 mb-2">Water Supply</h1>
-        <p className="text-slate-500 font-medium">Daily supply schedule, water tank volumes, and maintenance warnings.</p>
+        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">Water Supply</h1>
+        <p className="text-sm md:text-base text-slate-500 font-medium max-w-2xl">Daily supply schedule, water tank volumes, and maintenance warnings.</p>
       </div>
 
       {/* Emergency Alert Banner */}

@@ -76,27 +76,27 @@ export default function MyCertificates() {
   }
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 bg-white/50 backdrop-blur-xl p-8 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50">
+    <div className="space-y-6 max-w-5xl mx-auto pb-28 md:pb-12 px-2 md:px-0">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 bg-white/50 backdrop-blur-xl p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm md:shadow-xl shadow-slate-200/50">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Mere Certificates</h1>
-          <p className="text-slate-500 font-medium mt-1">Aapke dwara apply kiye gaye sabhi praman patro ka status</p>
+          <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Mere Certificates</h1>
+          <p className="text-sm md:text-base text-slate-500 font-medium mt-1">Aapke dwara apply kiye gaye sabhi praman patro ka status</p>
         </div>
-        <div className="flex flex-wrap gap-3 mt-4 md:mt-0 w-full md:w-auto">
-          <div className="relative flex-1 min-w-[200px]">
+        <div className="flex flex-col md:flex-row gap-3 mt-4 md:mt-0 w-full md:w-auto">
+          <div className="relative flex-1 w-full md:min-w-[200px]">
             <input 
               type="text" 
               placeholder="Search App ID or Type..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-4 h-12 w-full rounded-xl border border-slate-200 bg-white text-sm font-bold focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:font-medium placeholder:text-slate-400 shadow-sm"
+              className="px-4 h-12 w-full rounded-[1rem] md:rounded-xl border border-slate-200 bg-white text-sm font-bold focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:font-medium placeholder:text-slate-400 shadow-sm"
             />
           </div>
-          <div className="relative">
+          <div className="relative w-full md:w-auto">
             <select 
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="h-12 pl-4 pr-10 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-700 outline-none focus:ring-4 focus:ring-primary/10 appearance-none shadow-sm cursor-pointer"
+              className="w-full h-12 pl-4 pr-10 rounded-[1rem] md:rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-700 outline-none focus:ring-4 focus:ring-primary/10 appearance-none shadow-sm cursor-pointer"
             >
               <option value="all">All Certificates</option>
               <option value="pending">Pending</option>

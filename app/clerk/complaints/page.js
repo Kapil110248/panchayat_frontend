@@ -78,7 +78,7 @@ export default function ClerkComplaints() {
       if (resolutionModal.photo) {
         const formDataUpload = new FormData();
         formDataUpload.append("file", resolutionModal.photo);
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
+        const apiUrl = API_BASE_URL;
         const uploadRes = await fetch(`${apiUrl}/upload`, {
           method: "POST",
           headers: { "Authorization": `Bearer ${token}` },
@@ -217,7 +217,7 @@ export default function ClerkComplaints() {
                       {complaint.image_url && complaint.image_url !== "null" && (
                         <div className="mt-3">
                           <img 
-                            src={complaint.image_url.startsWith('http') ? complaint.image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${complaint.image_url}`} 
+                            src={complaint.image_url.startsWith('http') ? complaint.image_url : `${BACKEND_URL}${complaint.image_url}`} 
                             alt="Complaint Attachment" 
                             className="h-24 w-auto object-cover rounded-lg border border-slate-200" 
                           />
