@@ -130,7 +130,7 @@ export default function MyComplaints() {
                 {selectedComplaint.image_url && selectedComplaint.image_url !== "null" && (
                   <div>
                     <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Attached Photo</h4>
-                    <img src={selectedComplaint.image_url.startsWith('http') ? selectedComplaint.image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'http://localhost:8001'}${selectedComplaint.image_url}`} alt="Complaint Attachment" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
+                    <img src={selectedComplaint.image_url.startsWith('http') ? selectedComplaint.image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${selectedComplaint.image_url}`} alt="Complaint Attachment" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
                   </div>
                 )}
                 
@@ -166,7 +166,7 @@ export default function MyComplaints() {
                     </div>
                     {selectedComplaint.resolution_image_url && selectedComplaint.resolution_image_url !== "null" && (
                       <div className="mb-4">
-                        <img src={selectedComplaint.resolution_image_url.startsWith('http') ? selectedComplaint.resolution_image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'http://localhost:8001'}${selectedComplaint.resolution_image_url}`} alt="Resolution Proof" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
+                        <img src={selectedComplaint.resolution_image_url.startsWith('http') ? selectedComplaint.resolution_image_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${selectedComplaint.resolution_image_url}`} alt="Resolution Proof" className="w-full max-h-60 object-cover rounded-xl border border-slate-200" />
                       </div>
                     )}
                     <Button onClick={() => handleConfirmResolution(selectedComplaint.real_id)} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg shadow-emerald-200 py-6 font-bold">

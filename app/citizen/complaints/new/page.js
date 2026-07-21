@@ -32,7 +32,7 @@ export default function NewComplaint() {
       if (photo) {
         const formDataUpload = new FormData();
         formDataUpload.append("file", photo);
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001/api";
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
         const uploadRes = await fetch(`${apiUrl}/upload`, {
           method: "POST",
           headers: { "Authorization": `Bearer ${token}` },

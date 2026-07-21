@@ -212,7 +212,7 @@ export default function CitizenGramSabha() {
                             const avatarUrl = sug.citizen?.avatar_url
                               ? (sug.citizen.avatar_url.startsWith('http')
                                   ? sug.citizen.avatar_url
-                                  : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'http://localhost:8001'}${sug.citizen.avatar_url}`)
+                                  : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${sug.citizen.avatar_url}`)
                               : `https://api.dicebear.com/7.x/avataaars/svg?seed=${sug.citizen?.full_name || 'Citizen'}`;
 
                             return (
@@ -241,7 +241,7 @@ export default function CitizenGramSabha() {
                                       const replyAvatarUrl = reply.citizen?.avatar_url
                                         ? (reply.citizen.avatar_url.startsWith('http')
                                             ? reply.citizen.avatar_url
-                                            : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'http://localhost:8001'}${reply.citizen.avatar_url}`)
+                                            : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${reply.citizen.avatar_url}`)
                                         : `https://api.dicebear.com/7.x/avataaars/svg?seed=${reply.citizen?.full_name || 'Citizen'}`;
 
                                       return (
@@ -483,7 +483,7 @@ export default function CitizenGramSabha() {
                           const avatarUrl = sug.citizen?.avatar_url
                             ? (sug.citizen.avatar_url.startsWith('http')
                                 ? sug.citizen.avatar_url
-                                : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'http://localhost:8001'}${sug.citizen.avatar_url}`)
+                                : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${sug.citizen.avatar_url}`)
                             : `https://api.dicebear.com/7.x/avataaars/svg?seed=${sug.citizen?.full_name || 'Citizen'}`;
 
                           return (
@@ -512,7 +512,7 @@ export default function CitizenGramSabha() {
                                     const replyAvatarUrl = reply.citizen?.avatar_url
                                       ? (reply.citizen.avatar_url.startsWith('http')
                                           ? reply.citizen.avatar_url
-                                          : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'http://localhost:8001'}${reply.citizen.avatar_url}`)
+                                          : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${reply.citizen.avatar_url}`)
                                       : `https://api.dicebear.com/7.x/avataaars/svg?seed=${reply.citizen?.full_name || 'Citizen'}`;
 
                                     return (

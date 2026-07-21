@@ -326,7 +326,7 @@ export function Navbar({ role, onMenuClick }) {
                         <div className="flex gap-3">
                           <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 overflow-hidden ${!notif.is_read ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-slate-100 text-slate-400'}`}>
                             {notif.sender?.avatar_url ? (
-                               <img src={notif.sender.avatar_url.startsWith('http') ? notif.sender.avatar_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'http://localhost:8001'}${notif.sender.avatar_url}`} alt="Sender" className="w-full h-full object-cover" />
+                               <img src={notif.sender.avatar_url.startsWith('http') ? notif.sender.avatar_url : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${notif.sender.avatar_url}`} alt="Sender" className="w-full h-full object-cover" />
                             ) : notif.type === 'complaint' ? <MessageSquare className="w-4 h-4" /> : 
                              notif.type === 'certificate' ? <FileText className="w-4 h-4" /> : 
                              notif.type === 'leave' ? <User className="w-4 h-4" /> : <Bell className="w-4 h-4" />}
@@ -366,7 +366,7 @@ export function Navbar({ role, onMenuClick }) {
              <div className="w-12 h-12 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center border border-primary/20 p-1 group-hover:scale-105 transition-transform">
                 <div className="w-full h-full bg-white rounded-xl flex items-center justify-center overflow-hidden">
                    {userAvatar ? (
-                     <img src={userAvatar.startsWith('http') ? userAvatar : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'http://localhost:8001'}${userAvatar}`} alt="Profile" className="w-full h-full object-cover" />
+                     <img src={userAvatar.startsWith('http') ? userAvatar : `${process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api', '') : 'https://panchayat-backend-0aqf.onrender.com'}${userAvatar}`} alt="Profile" className="w-full h-full object-cover" />
                    ) : (
                      <User className="w-6 h-6 text-primary" />
                    )}

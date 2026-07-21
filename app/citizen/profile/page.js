@@ -140,7 +140,7 @@ export default function ProfilePage() {
       const fd = new FormData();
       fd.append('file', file);
       
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001/api";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
@@ -264,7 +264,7 @@ export default function ProfilePage() {
       const fd = new FormData();
       fd.append('file', file);
       
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001/api";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
@@ -303,7 +303,7 @@ export default function ProfilePage() {
       const fd = new FormData();
       fd.append('file', file);
       
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001/api";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
@@ -352,7 +352,7 @@ export default function ProfilePage() {
       const fd = new FormData();
       fd.append('file', tempFile);
       
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001/api";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://panchayat-backend-0aqf.onrender.com/api";
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
