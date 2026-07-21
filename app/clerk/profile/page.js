@@ -204,7 +204,7 @@ export default function ClerkProfile() {
           {/* Stats row */}
           <div className="grid grid-cols-3 gap-3 mt-6 pt-6 border-t border-white/10">
             {[
-              { icon: Building2, label: "Village", val: "Sarahi" },
+              { icon: Building2, label: "Village", val: "Your Village" },
               { icon: Briefcase, label: "Department", val: "Gram Panchayat" },
               { icon: Calendar, label: "D.O.B", val: fmtDate(profile?.date_of_birth) || "Not set" },
             ].map((s, i) => (

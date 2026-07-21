@@ -13,13 +13,19 @@ import {
   Fingerprint, 
   ShieldCheck, 
   HelpCircle,
-  Info
+  Info,
+  Users,
+  AlertCircle
 } from "lucide-react";
 import { api } from "@/lib/api";
+import Link from "next/link";
 
 export default function CitizenRation() {
   const [schedules, setSchedules] = useState([]);
+  const [quota, setQuota] = useState(null);
+  const [allSchedules, setAllSchedules] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchRation = async () => {
@@ -30,21 +36,34 @@ export default function CitizenRation() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        const activeSchedules = (data.schedules || []).filter(sched => {
+        const allSch = data.schedules || [];
+        const activeSchedules = allSch.filter(sched => {
           const schedDate = new Date(sched.distribution_date);
           schedDate.setHours(0, 0, 0, 0);
           return schedDate >= today;
         });
 
         setSchedules(activeSchedules);
+        setAllSchedules(allSch);
+        setQuota(data.quota || null);
       } catch (error) {
         console.error("Failed to load ration schedule:", error);
+        setError("Failed to load ration data. Please try again.");
       } finally {
         setLoading(false);
       }
     };
     fetchRation();
   }, []);
+
+  const cardTypeBadge = (type) => {
+    const map = {
+      BPL: "text-red-100 border-red-200",
+      AAY: "text-purple-100 border-purple-200",
+      APL: "text-blue-100 border-blue-200",
+    };
+    return map[type] || "text-slate-100 border-slate-200";
+  };
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
@@ -66,17 +85,72 @@ export default function CitizenRation() {
         </div>
       </div>
 
+      {/* My Ration Entitlement - backend data */}
+      {quota && (
+        <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-3xl p-6 text-white shadow-xl shadow-emerald-500/20">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-emerald-200 text-xs font-black uppercase tracking-widest mb-1">Aapka Ration Card</p>
+              <h2 className="text-2xl font-black tracking-tight">{quota.card_number}</h2>
+              <span className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black border bg-white/20 border-white/30 ${cardTypeBadge(quota.card_type)}`}>
+                {quota.card_type} Card
+              </span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-2xl px-4 py-3">
+              <Users className="w-5 h-5 text-emerald-200" />
+              <div>
+                <p className="text-emerald-200 text-[10px] font-black uppercase tracking-wider">Family Size</p>
+                <p className="text-xl font-black">{quota.family_size} members</p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-6 grid grid-cols-3 gap-3">
+            <div className="bg-white/10 border border-white/20 rounded-2xl p-4 text-center">
+              <p className="text-emerald-200 text-[10px] font-black uppercase tracking-wider mb-1">🌾 Wheat</p>
+              <p className="text-2xl font-black">{quota.wheat} <span className="text-sm font-bold opacity-80">kg</span></p>
+              <p className="text-emerald-200 text-[10px] font-semibold mt-0.5">per month</p>
+            </div>
+            <div className="bg-white/10 border border-white/20 rounded-2xl p-4 text-center">
+              <p className="text-emerald-200 text-[10px] font-black uppercase tracking-wider mb-1">🍚 Rice</p>
+              <p className="text-2xl font-black">{quota.rice} <span className="text-sm font-bold opacity-80">kg</span></p>
+              <p className="text-emerald-200 text-[10px] font-semibold mt-0.5">per month</p>
+            </div>
+            <div className="bg-white/10 border border-white/20 rounded-2xl p-4 text-center">
+              <p className="text-emerald-200 text-[10px] font-black uppercase tracking-wider mb-1">🧂 Sugar</p>
+              <p className="text-2xl font-black">{quota.sugar} <span className="text-sm font-bold opacity-80">kg</span></p>
+              <p className="text-emerald-200 text-[10px] font-semibold mt-0.5">per month</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-2xl text-red-600 text-sm font-semibold">
+          <AlertCircle className="w-5 h-5 flex-shrink-0" />
+          {error}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Schedules list */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-emerald-500" />
-              Active Distribution Schedules
-            </h2>
-            <span className="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-full">
-              {schedules.length} Active
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-emerald-500" />
+                Active Distribution Schedules
+              </h2>
+              <span className="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-full">
+                {schedules.length} Active
+              </span>
+            </div>
+            <Link 
+              href="/citizen/ration/history" 
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-600 rounded-xl text-sm font-semibold transition-all shadow-sm self-start sm:self-auto"
+            >
+              <Clock className="w-4 h-4" />
+              View History
+            </Link>
           </div>
 
           {loading ? (
@@ -134,6 +208,22 @@ export default function CitizenRation() {
                       </div>
                     </div>
                   </div>
+
+                  {sched.last_date && (
+                    <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4 flex items-center gap-4">
+                      <div className="w-10 h-10 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center shrink-0">
+                        <AlertCircle className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Important Alert</p>
+                        <p className="text-sm font-bold text-rose-900">
+                          Last Date for Distribution: {new Date(sched.last_date).toLocaleDateString("en-IN", { 
+                            weekday: "long", year: "numeric", month: "long", day: "numeric" 
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 bg-slate-50/50 rounded-2xl border border-slate-100">

@@ -24,6 +24,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
@@ -34,7 +35,7 @@ export default function RegisterPage() {
     mobile: "",
     aadhaarNumber: "",
     address: "",
-    village: "Sarahi",
+    village: "Your Village",
     pincode: "",
     dateOfBirth: "",
     gender: "male",
@@ -90,7 +91,8 @@ export default function RegisterPage() {
       setSubmitted(true);
     } catch (error) {
       console.error("Registration failed:", error);
-      alert(error.message || "Registration failed. Please try again.");
+      setToastMessage(error.message || "Registration failed. Please try again.");
+      setTimeout(() => setToastMessage(""), 4000);
     } finally {
       setLoading(false);
     }
@@ -105,7 +107,7 @@ export default function RegisterPage() {
           </div>
           <h2 className="text-3xl font-black text-slate-900 mb-4">Request Submitted!</h2>
           <p className="text-slate-600 font-medium mb-8 leading-relaxed">
-            Aapki registration request successfully submit ho gayi hai. Admin aapki details verify karenge aur approve karenge. Aapko email/SMS se notification milegi.
+            Your registration request has been submitted successfully. The administrator will verify your details and approve your account. You will receive a notification via email/SMS upon approval.
           </p>
           <div className="space-y-3">
             <Link href="/">
@@ -147,10 +149,10 @@ export default function RegisterPage() {
         <div className="bg-gradient-to-r from-primary to-emerald-600 p-8 text-white">
           <div className="flex items-center gap-3 mb-4">
             <Shield className="w-8 h-8" />
-            <h2 className="text-3xl font-black">Naya Sadasya Registration</h2>
+            <h2 className="text-3xl font-black">New Citizen Registration</h2>
           </div>
           <p className="text-emerald-100 font-medium">
-            Gaon ke sadasya ke liye registration request bhejein. Admin verify karke approve karenge.
+            Submit a registration request to become a verified citizen. The administrator will verify and approve your account.
           </p>
         </div>
 
@@ -165,7 +167,7 @@ export default function RegisterPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-black text-slate-400 uppercase tracking-widest pl-1">
-                  Full Name (Aadhaar ke anusaar) *
+                  Full Name (As per Aadhaar) *
                 </label>
                 <input
                   type="text"
@@ -218,9 +220,9 @@ export default function RegisterPage() {
                   onChange={handleChange}
                   required
                 >
-                  <option value="male">Male (Purush)</option>
-                  <option value="female">Female (Mahila)</option>
-                  <option value="other">Other (Anya)</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
 
@@ -303,7 +305,7 @@ export default function RegisterPage() {
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    placeholder="Kam se kam 6 characters"
+                    placeholder="Minimum 6 characters"
                     minLength="6"
                     className="w-full bg-slate-50 border-2 border-transparent px-4 py-3.5 pr-12 text-sm font-semibold rounded-2xl transition-all focus:bg-white focus:border-primary/20 outline-none"
                     value={formData.password}
@@ -329,7 +331,7 @@ export default function RegisterPage() {
                   <input
                     type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
-                    placeholder="Password dobara likhein"
+                    placeholder="Re-enter your password"
                     minLength="6"
                     className="w-full bg-slate-50 border-2 border-transparent px-4 py-3.5 pr-12 text-sm font-semibold rounded-2xl transition-all focus:bg-white focus:border-primary/20 outline-none"
                     value={formData.confirmPassword}
@@ -371,7 +373,7 @@ export default function RegisterPage() {
                 </label>
                 <textarea
                   name="address"
-                  placeholder="e.g. Ward No. 3, Near Hanuman Mandir, Sarahi"
+                  placeholder="e.g. Ward No. 3, Near Hanuman Mandir, Your Village"
                   rows="3"
                   className="w-full bg-slate-50 border-2 border-transparent px-4 py-3.5 text-sm font-semibold rounded-2xl transition-all focus:bg-white focus:border-primary/20 outline-none resize-none"
                   value={formData.address}
@@ -388,7 +390,7 @@ export default function RegisterPage() {
                   <input
                     type="text"
                     name="village"
-                    placeholder="e.g. Sarahi"
+                    placeholder="e.g. Your Village"
                     className="w-full bg-slate-50 border-2 border-transparent px-4 py-3.5 text-sm font-semibold rounded-2xl transition-all focus:bg-white focus:border-primary/20 outline-none"
                     value={formData.village}
                     onChange={handleChange}
@@ -422,10 +424,10 @@ export default function RegisterPage() {
               Important Notice
             </h4>
             <ul className="text-sm text-amber-800 font-medium space-y-1 list-disc list-inside">
-              <li>Sabhi details Aadhaar Card ke anusaar honi chahiye</li>
-              <li>Admin aapki details verify karenge</li>
-              <li>Approval ke baad hi aap login kar sakte hain</li>
-              <li>Galat jaankari dene par request reject ho sakti hai</li>
+              <li>All details must strictly match your Aadhaar Card.</li>
+              <li>The administrator will manually verify your submitted details.</li>
+              <li>You can only log in after your request has been approved.</li>
+              <li>Providing incorrect or false information will result in request rejection.</li>
             </ul>
           </div>
 
@@ -443,10 +445,20 @@ export default function RegisterPage() {
           </Button>
 
           <p className="text-center text-xs text-slate-400 font-medium">
-            Pehle se registered hain? <Link href="/login" className="text-primary font-bold hover:underline">Login karein</Link>
+            Already registered? <Link href="/login" className="text-primary font-bold hover:underline">Login here</Link>
           </p>
         </form>
       </div>
+
+      {/* Modern Error Toast */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-5 fade-in duration-300">
+          <div className="bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 font-medium">
+            <Shield className="w-5 h-5 text-rose-400" />
+            {toastMessage}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

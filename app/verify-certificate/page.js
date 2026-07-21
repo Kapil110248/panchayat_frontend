@@ -129,7 +129,7 @@ export default function VerifyCertificatePage() {
       </div>
 
       <div className="text-center text-xs text-slate-400 font-medium">
-        © 2026 Gram Panchayat Sarahi. Powered by Digital India.
+        © 2026 Your Gram Panchayat. Powered by Digital India.
       </div>
     </div>
   );

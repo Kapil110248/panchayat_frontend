@@ -10,11 +10,11 @@ export default function AdminProfile() {
   const [adminData, setAdminData] = useState({
     name: "Ramesh Kumar",
     role: "Panchayat Administrator (Sarpanch)",
-    village: "Sarahi",
+    village: "Your Village",
     tenure: "2023 - 2028",
     email: "ramesh.sarpanch@gram.in",
     phone: "+91 88XXX XXXXX",
-    jurisdiction: "Sarahi Block A & B",
+    jurisdiction: "Your Village Block A & B",
     rating: "4.8/5.0",
     avatar_url: "",
     signature_url: "",

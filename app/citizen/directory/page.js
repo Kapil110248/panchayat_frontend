@@ -100,7 +100,7 @@ export default function CitizenDirectory() {
                   <MapPin className="w-5 h-5 text-rose-500 shrink-0" />
                   <div>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Village Sector</p>
-                    <p className="text-sm font-bold text-slate-900">{family?.ward_number || "Ward 04"}, Sarahi</p>
+                    <p className="text-sm font-bold text-slate-900">{family?.ward_number || "Ward 04"}, Your Village</p>
                   </div>
                 </div>
 
@@ -108,7 +108,7 @@ export default function CitizenDirectory() {
                   <Contact className="w-5 h-5 text-primary shrink-0" />
                   <div>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Registered Land Address</p>
-                    <p className="text-xs text-slate-600 font-bold leading-relaxed">{family?.address || userRecord?.profile?.address || "Sarahi village Block B"}</p>
+                    <p className="text-xs text-slate-600 font-bold leading-relaxed">{family?.address || userRecord?.profile?.address || "Your Village village Block B"}</p>
                   </div>
                 </div>
               </CardContent>

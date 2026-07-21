@@ -119,7 +119,7 @@ const CROP_DATABASE = [
 
 // Mock Live Mandi Price Generator (simulating real-time local mandi prices in India)
 const MANDI_DATA = {
-  "Sarahi Local Mandi": [
+  "Your Village Local Mandi": [
     { crop: "Wheat (गेहूँ)", minPrice: 2250, maxPrice: 2420, change: 15, trend: "up" },
     { crop: "Paddy (धान)", minPrice: 1950, maxPrice: 2180, change: -10, trend: "down" },
     { crop: "Mustard (सरसों)", minPrice: 5300, maxPrice: 5650, change: 45, trend: "up" },

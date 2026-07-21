@@ -17,9 +17,13 @@ import { Button } from "@/components/ui/Button";
 
 import { useState, useEffect } from "react";
 import { api } from "@/lib/api";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 export default function CitizenDashboard() {
   const [userName, setUserName] = useState("Citizen");
+  const [villageName, setVillageName] = useState("Your Village");
+  const [greeting, setGreeting] = useState("Welcome");
   const [statsData, setStatsData] = useState({
     applied: 0,
     active: 0,
@@ -37,19 +41,48 @@ export default function CitizenDashboard() {
       return;
     }
     
-    const headers = "Title,Type,Status,Date\n";
-    const csvRows = recentActivities.map(act => `"${act.title}","${act.type}","${act.status}","${act.time}"`);
-    const csvData = headers + csvRows.join("\n");
+    const doc = new jsPDF();
     
-    const blob = new Blob([csvData], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `my_history_${new Date().toISOString().split('T')[0]}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    // Add Header
+    doc.setFontSize(22);
+    doc.setTextColor(15, 23, 42); // slate-900
+    doc.text(`Gram Panchayat ${villageName}`, 105, 20, null, null, "center");
+    
+    doc.setFontSize(14);
+    doc.setTextColor(100, 116, 139); // slate-500
+    doc.text("Citizen Dashboard - Application History", 105, 30, null, null, "center");
+    
+    // Add Details
+    doc.setFontSize(11);
+    doc.setTextColor(15, 23, 42); // slate-900
+    doc.text(`Citizen Name: ${userName}`, 14, 45);
+    doc.text(`Date Generated: ${new Date().toLocaleDateString('en-GB')}`, 14, 52);
+    
+    const tableColumn = ["Application / Title", "Category", "Current Status", "Submitted Date"];
+    const tableRows = [];
+    
+    recentActivities.forEach(act => {
+      const formattedStatus = act.status.replace(/_/g, ' ');
+      const actData = [
+        act.title,
+        act.type,
+        formattedStatus,
+        act.time
+      ];
+      tableRows.push(actData);
+    });
+    
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 60,
+      theme: 'grid',
+      headStyles: { fillColor: [15, 23, 42], textColor: 255 }, // slate-900 header
+      alternateRowStyles: { fillColor: [248, 250, 252] }, // slate-50
+      styles: { fontSize: 10, cellPadding: 4 }
+    });
+    
+    doc.save(`${villageName.replace(/\s+/g, '_')}_History_${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
   useEffect(() => {
@@ -61,8 +94,14 @@ export default function CitizenDashboard() {
           setUserName(name.split(" ")[0]);
         }
         
+        const hour = new Date().getHours();
+        if (hour < 12) setGreeting("Good Morning");
+        else if (hour < 17) setGreeting("Good Afternoon");
+        else setGreeting("Good Evening");
+        
         const data = await api.get("/citizen/dashboard/stats", token);
         setStatsData(data.stats);
+        if (data.villageName) setVillageName(data.villageName);
         setRecentActivities(data.recentActivities);
         setLatestNotice(data.latestNotice);
         if (data.villageStats) {
@@ -92,7 +131,7 @@ export default function CitizenDashboard() {
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-xl text-[10px] font-black uppercase tracking-widest mb-3 border border-primary/20 backdrop-blur-md">
              <LayoutGrid className="w-3 h-3" /> Citizen Dashboard
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Radhe Radhe, <span className="bg-gradient-to-r from-primary to-indigo-600 bg-clip-text text-transparent">{userName}!</span></h1>
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">{greeting}, <span className="bg-gradient-to-r from-primary to-indigo-600 bg-clip-text text-transparent">{userName}!</span></h1>
           <p className="text-slate-500 font-medium mt-2 text-lg">Welcome to your digital village portal. Let's get things done today.</p>
         </div>
         <div className="flex gap-3">

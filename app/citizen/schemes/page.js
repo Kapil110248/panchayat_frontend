@@ -41,7 +41,13 @@ export default function SchemesPage() {
         api.get('/citizen/schemes/my-applications', token)
       ]);
       
-      setSchemes(schemesRes.schemes || []);
+      setSchemes((schemesRes.schemes || []).map(s => {
+        let parsedFields = s.form_fields;
+        if (typeof parsedFields === 'string') {
+          try { parsedFields = JSON.parse(parsedFields); } catch (e) { parsedFields = []; }
+        }
+        return { ...s, form_fields: parsedFields };
+      }));
       setApplications(appsRes.applications || []);
     } catch (error) {
       console.error("Error fetching schemes data", error);
@@ -255,7 +261,7 @@ export default function SchemesPage() {
                       <p className="text-xs text-slate-500 font-medium">Kripya aavedan ke liye niche diye gye details bharein</p>
                     </div>
                     
-                    {selectedScheme.form_fields.map((field, idx) => {
+                    {Array.isArray(selectedScheme.form_fields) && selectedScheme.form_fields.map((field, idx) => {
                       if (field.type === 'note') {
                         return (
                           <div key={idx} className="p-3 bg-amber-50/60 border border-amber-100/70 text-amber-800 rounded-xl text-xs font-bold leading-relaxed">

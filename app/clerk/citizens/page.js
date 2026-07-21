@@ -133,34 +133,32 @@ export default function CitizenManagement() {
     
     setUploadingImage(true);
     try {
-      const timestamp = Math.round((new Date()).getTime() / 1000);
-      const apiSecret = process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET;
-      const signatureString = `timestamp=${timestamp}${apiSecret}`;
+      const fd = new FormData();
+      fd.append('file', file);
       
-      // Generate SHA-1 signature
-      const encoder = new TextEncoder();
-      const data = encoder.encode(signatureString);
-      const hashBuffer = await crypto.subtle.digest("SHA-1", data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const signature = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-
-      const formDataUpload = new FormData();
-      formDataUpload.append("file", file);
-      formDataUpload.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
-      formDataUpload.append("timestamp", timestamp);
-      formDataUpload.append("signature", signature);
-
-      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-        method: "POST",
-        body: formDataUpload
+      const token = localStorage.getItem("accessToken");
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001/api";
+      
+      const res = await fetch(`${apiUrl}/upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: fd,
       });
+      
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "Upload failed");
+      }
+      
       const result = await res.json();
       if (result.secure_url) {
         setFormData(prev => ({ ...prev, avatar_url: result.secure_url }));
       }
     } catch(err) {
-      alert("Failed to upload image.");
+      console.error(err);
+      alert("Failed to upload image: " + err.message);
     } finally {
       setUploadingImage(false);
     }
@@ -229,7 +227,7 @@ export default function CitizenManagement() {
                  <option value="All">All Wards</option>
                  <option value="Ward 01">Ward 01</option>
                  <option value="Ward 02">Ward 02</option>
-                 <option value="Sarahi">Sarahi</option>
+                 <option value="Your Village">Your Village</option>
               </select>
             </div>
             <Button variant="outline" size="sm" onClick={exportToPDF} className="flex items-center gap-2 rounded-full px-4">
@@ -351,7 +349,7 @@ export default function CitizenManagement() {
                     <select className="w-full border border-slate-200 rounded-lg p-2.5 text-sm outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 bg-white" required value={formData.ward} onChange={(e) => setFormData({...formData, ward: e.target.value})}>
                       <option value="Ward 01">Ward 01</option>
                       <option value="Ward 02">Ward 02</option>
-                      <option value="Sarahi">Sarahi</option>
+                      <option value="Your Village">Your Village</option>
                     </select>
                   </div>
                   <div className="space-y-1">

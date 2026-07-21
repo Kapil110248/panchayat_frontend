@@ -28,7 +28,7 @@ const searchItems = [
 export function Navbar({ role, onMenuClick }) {
   const [userName, setUserName] = useState("Ramesh Kumar");
   const [userAvatar, setUserAvatar] = useState(null);
-  const [villageName, setVillageName] = useState("Sarahi");
+  const [villageName, setVillageName] = useState("Your Village");
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [notifications, setNotifications] = useState([]);
@@ -135,7 +135,7 @@ export function Navbar({ role, onMenuClick }) {
           } else {
             // Fetch public panchayat info
             try {
-              const pInfo = await api.get("/panchayat/info");
+              const pInfo = await api.get("/panchayat/info", token);
               if (pInfo && pInfo.village) {
                 setVillageName(pInfo.village);
               }

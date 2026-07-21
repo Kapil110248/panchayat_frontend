@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { api } from "@/lib/api";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   FaLandmark, FaWhatsapp, FaFacebookF, FaYoutube, FaGooglePlay, FaApple,
@@ -51,8 +52,8 @@ const slideInLeft = {
 };
 
 const slideInRight = {
-  hidden: { opacity: 0, x: 60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+  hidden: { opacity: 0, x: 20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
 /* ─────────────────────────────────────────────
@@ -109,6 +110,23 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [contactForm, setContactForm] = useState({ name: "", mobile: "", message: "" });
+  const [contactStatus, setContactStatus] = useState(null);
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setContactStatus("submitting");
+    try {
+      await api.post("/contact", contactForm);
+      setContactStatus("success");
+      setContactForm({ name: "", mobile: "", message: "" });
+      alert("Your message has been sent successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to send message. Please try again.");
+      setContactStatus("error");
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -127,9 +145,9 @@ export default function LandingPage() {
   const navLinks = [
     { name: "Home", href: "#hero" },
     { name: "Services", href: "#services" },
-    { name: "Schemes", href: "#schemes" },
-    { name: "Development", href: "#development" },
-    { name: "Notices", href: "#notices" },
+    { name: "Government Schemes", href: "#schemes" },
+    { name: "Development Projects", href: "#development" },
+    { name: "Public Notices", href: "#notices" },
     { name: "Gram Sabha", href: "#gramsabha" },
     { name: "Contact", href: "#contact" },
   ];
@@ -138,29 +156,29 @@ export default function LandingPage() {
      DATA
   ───────────────────────────────────────── */
   const quickServices = [
-    { title: "Residence Certificate", desc: "Niwas Praman Patra ke liye aavedan karein", icon: HiOutlineHomeModern, color: "from-emerald-500 to-green-600" },
-    { title: "Income Certificate", desc: "Aay Praman Patra online prapt karein", icon: HiOutlineBanknotes, color: "from-blue-500 to-indigo-600" },
-    { title: "Birth Certificate", desc: "Janm Praman Patra ke liye aavedan", icon: HiOutlineSparkles, color: "from-pink-500 to-rose-600" },
-    { title: "Death Certificate", desc: "Mrityu Praman Patra registration", icon: HiOutlineDocumentText, color: "from-slate-500 to-slate-700" },
-    { title: "Character Certificate", desc: "Charitra Praman Patra ke liye apply karein", icon: HiOutlineShieldCheck, color: "from-violet-500 to-purple-600" },
-    { title: "Complaint Registration", desc: "Shikayat darj karein aur track karein", icon: HiOutlineChatBubbleLeftRight, color: "from-amber-500 to-orange-600" },
-    { title: "Application Tracking", desc: "Aavedan ki sthiti online dekhein", icon: HiOutlineClipboardDocumentCheck, color: "from-teal-500 to-cyan-600" },
-    { title: "Government Schemes", desc: "Sarkaari yojnaon ki jaankari prapt karein", icon: HiOutlineBookOpen, color: "from-indigo-500 to-blue-600" },
+    { title: "Residence Certificate", desc: "Apply for a domicile or residence certificate online", icon: HiOutlineHomeModern, color: "from-emerald-500 to-green-600" },
+    { title: "Income Certificate", desc: "Obtain your official income certificate digitally", icon: HiOutlineBanknotes, color: "from-blue-500 to-indigo-600" },
+    { title: "Birth Certificate", desc: "Register and apply for a new birth certificate", icon: HiOutlineSparkles, color: "from-pink-500 to-rose-600" },
+    { title: "Death Certificate", desc: "Submit and track death certificate registrations", icon: HiOutlineDocumentText, color: "from-slate-500 to-slate-700" },
+    { title: "Character Certificate", desc: "Apply for official character verification documents", icon: HiOutlineShieldCheck, color: "from-violet-500 to-purple-600" },
+    { title: "Complaint Registration", desc: "File and track your grievances with the administration", icon: HiOutlineChatBubbleLeftRight, color: "from-amber-500 to-orange-600" },
+    { title: "Application Tracking", desc: "Check the real-time status of your submitted applications", icon: HiOutlineClipboardDocumentCheck, color: "from-teal-500 to-cyan-600" },
+    { title: "Government Schemes", desc: "Access information on all available state and central schemes", icon: HiOutlineBookOpen, color: "from-indigo-500 to-blue-600" },
   ];
 
   const features = [
-    { title: "Online Certificate System", desc: "Sabhi pramanpatron ke liye digital aavedan", icon: HiOutlineDocumentText, color: "bg-blue-500" },
-    { title: "Complaint Management", desc: "Shikayat darj karein, track karein", icon: HiOutlineChatBubbleLeftRight, color: "bg-rose-500" },
-    { title: "QR Verified Certificates", desc: "QR Code se praman patra ki sattyata jaanchein", icon: HiOutlineQrCode, color: "bg-violet-500" },
-    { title: "WhatsApp Notifications", desc: "Sabhi updates seedha WhatsApp par", icon: FaWhatsapp, color: "bg-green-500" },
-    { title: "Gram Sabha Management", desc: "Gram Sabha ki taarikh, agenda, aur minute", icon: HiOutlineUserGroup, color: "bg-indigo-500" },
-    { title: "Development Tracking", desc: "Gaon ke vikas karyon ki live monitoring", icon: HiOutlineArrowTrendingUp, color: "bg-orange-500" },
-    { title: "Village Directory", desc: "Sampoorn graam parivaar pustak", icon: HiOutlineGlobeAlt, color: "bg-cyan-500" },
-    { title: "Digital Document Vault", desc: "Sabhi dastavez surakshit cloud me", icon: HiOutlineShieldCheck, color: "bg-emerald-500" },
-    { title: "Tax Management", desc: "Grih kar, jal kar online bhugtan", icon: HiOutlineBanknotes, color: "bg-amber-500" },
-    { title: "Emergency Alerts", desc: "Baadh, bimari ke alerts turant milein", icon: HiOutlineExclamationTriangle, color: "bg-red-500" },
-    { title: "Agriculture Help Center", desc: "Krishi salah aur yojnaon ki jaankari", icon: HiOutlineSun, color: "bg-lime-500" },
-    { title: "Health Camp Registration", desc: "Swasthya shivir me online registration", icon: HiOutlineHeart, color: "bg-pink-500" },
+    { title: "Online Certificate System", desc: "Digital application for all government certificates", icon: HiOutlineDocumentText, color: "bg-blue-500" },
+    { title: "Complaint Management", desc: "Register and track your civic grievances easily", icon: HiOutlineChatBubbleLeftRight, color: "bg-rose-500" },
+    { title: "QR Verified Certificates", desc: "Verify document authenticity instantly via QR codes", icon: HiOutlineQrCode, color: "bg-violet-500" },
+    { title: "WhatsApp Notifications", desc: "Receive all official updates directly on WhatsApp", icon: FaWhatsapp, color: "bg-green-500" },
+    { title: "Gram Sabha Management", desc: "Access meeting schedules, agendas, and minutes", icon: HiOutlineUserGroup, color: "bg-indigo-500" },
+    { title: "Development Tracking", desc: "Live monitoring of ongoing village infrastructure projects", icon: HiOutlineArrowTrendingUp, color: "bg-orange-500" },
+    { title: "Village Directory", desc: "Comprehensive digital family register of the village", icon: HiOutlineGlobeAlt, color: "bg-cyan-500" },
+    { title: "Digital Document Vault", desc: "Secure cloud storage for all your vital documents", icon: HiOutlineShieldCheck, color: "bg-emerald-500" },
+    { title: "Tax Management", desc: "Pay property and water taxes online seamlessly", icon: HiOutlineBanknotes, color: "bg-amber-500" },
+    { title: "Emergency Alerts", desc: "Get instant notifications for floods or health advisories", icon: HiOutlineExclamationTriangle, color: "bg-red-500" },
+    { title: "Agriculture Help Center", desc: "Expert farming advice and details on agricultural schemes", icon: HiOutlineSun, color: "bg-lime-500" },
+    { title: "Health Camp Registration", desc: "Online enrollment for upcoming village medical camps", icon: HiOutlineHeart, color: "bg-pink-500" },
   ];
 
   const devProjects = [
@@ -171,17 +189,17 @@ export default function LandingPage() {
   ];
 
   const schemes = [
-    { name: "PM Awas Yojana", desc: "Garibon ke liye pakka makan", benefit: "₹1,20,000 anudan", eligibility: "BPL parivaar, kachcha makan", color: "from-orange-500 to-amber-600", icon: HiOutlineHomeModern },
-    { name: "Ayushman Bharat", desc: "₹5 Lakh tak ka muft ilaaj", benefit: "Muft swasthya beema", eligibility: "BPL/Ration card holders", color: "from-blue-500 to-indigo-600", icon: HiOutlineHeart },
-    { name: "PM Kisan Samman Nidhi", desc: "Kisaanon ko ₹6000 saalana", benefit: "₹2000 har 4 mahine", eligibility: "Sabhi chhote kisaan", color: "from-emerald-500 to-green-600", icon: HiOutlineSun },
-    { name: "Ladli Behna Yojana", desc: "Mahilaon ko aarthik sahayata", benefit: "₹1250 pratimah", eligibility: "21-60 aayuवर्ग ki mahilayen", color: "from-pink-500 to-rose-600", icon: HiOutlineTrophy },
+    { name: "PM Awas Yojana", desc: "Permanent housing for underprivileged families", benefit: "₹1,20,000 subsidy", eligibility: "BPL families, temporary housing", color: "from-orange-500 to-amber-600", icon: HiOutlineHomeModern },
+    { name: "Ayushman Bharat", desc: "Free medical treatment up to ₹5 Lakhs", benefit: "Free health insurance", eligibility: "BPL/Ration card holders", color: "from-blue-500 to-indigo-600", icon: HiOutlineHeart },
+    { name: "PM Kisan Samman Nidhi", desc: "Annual financial support of ₹6000 for farmers", benefit: "₹2000 every 4 months", eligibility: "All small and marginal farmers", color: "from-emerald-500 to-green-600", icon: HiOutlineSun },
+    { name: "Ladli Behna Yojana", desc: "Financial assistance for women empowerment", benefit: "₹1250 per month", eligibility: "Women aged 21-60 years", color: "from-pink-500 to-rose-600", icon: HiOutlineTrophy },
   ];
 
   const notices = [
-    { title: "Jal Aapurti Soochna", desc: "Ward 3-4 me kal subah jal aapurti band rahegi pipeline repair ke karan.", badge: "Urgent", badgeColor: "bg-red-500" },
-    { title: "Gram Sabha Baithak", desc: "Desh ki taarikh 25 June, samay 10:30 AM, sthan Panchayat Bhawan.", badge: "Important", badgeColor: "bg-amber-500" },
-    { title: "Muft Swasthya Shivir", desc: "10 July ko Polio tikakaran abhiyaan - sabhi 5 varsh se kam aayu ke bachche.", badge: "New", badgeColor: "bg-emerald-500" },
-    { title: "Bijli Maintenance", desc: "Shanivaar ko Ward 1-2 me bijli supply 2 ghante band rahegi.", badge: "Important", badgeColor: "bg-amber-500" },
+    { title: "Water Supply Disruption", desc: "Water supply in Wards 3 and 4 will be suspended tomorrow morning due to pipeline maintenance.", badge: "Urgent", badgeColor: "bg-red-500" },
+    { title: "Gram Sabha Meeting", desc: "Scheduled for June 25th at 10:30 AM. Venue: Main Panchayat Building.", badge: "Important", badgeColor: "bg-amber-500" },
+    { title: "Free Health Camp", desc: "Polio vaccination drive on July 10th for all children under the age of 5 years.", badge: "New", badgeColor: "bg-emerald-500" },
+    { title: "Power Grid Maintenance", desc: "Electricity supply will be interrupted for 2 hours this Saturday in Wards 1 and 2.", badge: "Important", badgeColor: "bg-amber-500" },
   ];
 
   const emergencyContacts = [
@@ -193,10 +211,10 @@ export default function LandingPage() {
   ];
 
   const testimonials = [
-    { name: "Ramesh Patel", ward: "Ward 01", feedback: "Digital portal se certificate banana bahut aasaan ho gaya hai. Pehle office ke 4-5 chakkar lagate the, ab ghar baithe ho jaata hai.", rating: 5 },
-    { name: "Sunita Devi", ward: "Ward 03", feedback: "Meri complaint online darj ki thi, 3 din me solve ho gayi. Bahut achhi seva hai.", rating: 5 },
-    { name: "Mohan Lal Verma", ward: "Ward 05", feedback: "PM Kisan ka paisa samay par milta hai. Panchayat portal par sab kuch track kar sakta hoon.", rating: 4 },
-    { name: "Anita Bai", ward: "Ward 02", feedback: "Health camp ki jaankari WhatsApp par mil gayi. Bahut suvidhaajanak system hai.", rating: 5 },
+    { name: "Ramesh Patel", ward: "Ward 01", feedback: "Applying for certificates is now seamless through the digital portal. I no longer need to visit the office multiple times; everything is done from home.", rating: 5 },
+    { name: "Sunita Devi", ward: "Ward 03", feedback: "I registered my grievance online, and it was resolved within 3 days. The service is incredibly efficient and transparent.", rating: 5 },
+    { name: "Mohan Lal Verma", ward: "Ward 05", feedback: "Receiving PM Kisan funds is timely, and I can track all my applications directly on the Panchayat portal.", rating: 4 },
+    { name: "Anita Bai", ward: "Ward 02", feedback: "I received notifications about the upcoming health camp directly on WhatsApp. This is a very convenient system.", rating: 5 },
   ];
 
   const galleryItems = [
@@ -227,7 +245,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="hidden sm:block">
-                <p className="text-base md:text-lg font-black text-slate-900 leading-tight tracking-tight">Gram Panchayat Sarahi</p>
+                <p className="text-base md:text-lg font-black text-slate-900 leading-tight tracking-tight">Your Gram Panchayat</p>
                 <p className="text-[10px] font-bold text-[#138808] uppercase tracking-widest">Digital Village Portal</p>
               </div>
             </Link>
@@ -304,20 +322,17 @@ export default function LandingPage() {
             <motion.div className="space-y-8" initial="hidden" animate="visible">
               <motion.div variants={fadeUp} custom={0} className="inline-flex items-center gap-2 px-4 py-2 bg-[#138808]/10 text-[#138808] rounded-full border border-[#138808]/20">
                 <HiOutlineShieldCheck className="w-4 h-4" />
-                <span className="text-xs font-black uppercase tracking-wider">Digital India Initiative • Govt. of M.P.</span>
+                <span className="text-xs font-black uppercase tracking-wider">Digital India Initiative • Government of Madhya Pradesh</span>
               </motion.div>
 
               <motion.div variants={fadeUp} custom={1} className="space-y-4">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight">
-                  Digital Gram{" "}
+                  Smart Digital Gram{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#138808] to-emerald-600">Panchayat</span>{" "}
                   Portal
                 </h1>
-                <p className="text-xl sm:text-2xl font-bold text-[#FF9933]">
-                  अब पंचायत आपके मोबाइल में
-                </p>
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl font-medium">
-                  Apply certificates, register complaints, track applications, view notices, participate in Gram Sabha, and access government services — without visiting the Panchayat office.
+                  Access all Panchayat services online from anywhere. Apply for certificates, submit complaints, track applications, participate in Gram Sabha, and stay connected with your local administration through one secure digital platform.
                 </p>
               </motion.div>
 
@@ -332,10 +347,10 @@ export default function LandingPage() {
 
               <motion.div variants={fadeUp} custom={3} className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-slate-200/50">
                 {[
-                  { value: "1100+", label: "Residents" },
+                  { value: "1100+", label: "Registered Citizens" },
                   { value: "100%", label: "Digital Records" },
-                  { value: "24×7", label: "Online Services" },
-                  { value: "15+", label: "Govt. Services" },
+                  { value: "24/7", label: "Online Services" },
+                  { value: "15+", label: "Government Services" },
                 ].map((stat, i) => (
                   <div key={i} className="text-center sm:text-left">
                     <p className="text-2xl sm:text-3xl font-black text-[#138808]">{stat.value}</p>
@@ -355,7 +370,7 @@ export default function LandingPage() {
                     <div className="w-32 h-32 bg-gradient-to-br from-[#138808] to-emerald-600 rounded-3xl flex items-center justify-center mb-6 shadow-2xl shadow-emerald-500/30">
                       <FaLandmark className="w-16 h-16 text-white" />
                     </div>
-                    <h3 className="text-xl font-black text-slate-900 text-center">Gram Panchayat Sarahi</h3>
+                    <h3 className="text-xl font-black text-slate-900 text-center">Your Gram Panchayat</h3>
                     <p className="text-sm text-slate-500 font-bold text-center mt-1">Madhya Pradesh</p>
 
                     {/* Mini icons floating */}
@@ -379,7 +394,7 @@ export default function LandingPage() {
                     </div>
                     <div>
                       <p className="text-xl font-black text-slate-900">4.9</p>
-                      <p className="text-[10px] font-bold text-slate-500">User Rating</p>
+                      <p className="text-[10px] font-bold text-slate-500">Citizen Satisfaction Rating</p>
                     </div>
                   </div>
                 </div>
@@ -388,7 +403,7 @@ export default function LandingPage() {
                 <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-5 py-3 border border-slate-100 animate-float animation-delay-2000">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
-                    <span className="text-sm font-black text-slate-700">1100+ Citizens Online</span>
+                    <span className="text-sm font-black text-slate-700">1100+ Citizens Registered</span>
                   </div>
                 </div>
               </div>
@@ -409,7 +424,7 @@ export default function LandingPage() {
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Quick Services</h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
-              Sabse zyada use hone wali panchayat sevayen — ab ek click me
+              The most frequently used Panchayat services — now accessible with a single click.
             </p>
           </motion.div>
 
@@ -444,7 +459,7 @@ export default function LandingPage() {
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Why Choose Digital Gram Panchayat?</h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
-              Aadhunik technology se panchayat sevaon me paardakshita aur sulabhta
+              Ensuring transparency and accessibility in local governance through modern technology.
             </p>
           </motion.div>
 
@@ -516,7 +531,7 @@ export default function LandingPage() {
               <span className="text-xs font-black uppercase tracking-wider">Village Development</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Development Works</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Gaon ke vikas karyon ki live sthiti dekhein</p>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Monitor the live progress of ongoing village development projects.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -567,7 +582,7 @@ export default function LandingPage() {
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6">Upcoming Gram Sabha</h2>
               <p className="text-lg text-slate-600 font-medium mb-8">
-                Gaon ki sabse badi baithak me shamil hon. Apne mudde uthayein, sujhaav dein, aur vikas me hissa lein.
+                Participate in the primary village assembly. Raise your concerns, provide suggestions, and actively contribute to local development.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link href="/login" className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-indigo-600 rounded-2xl hover:bg-indigo-700 hover:shadow-lg transition-all">
@@ -625,8 +640,8 @@ export default function LandingPage() {
               <HiOutlineTrophy className="w-4 h-4" />
               <span className="text-xs font-black uppercase tracking-wider">Government Schemes</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Sarkaari Yojnayen</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Kendriya evam rajya sarkar ki pramukh yojnaon ki jaankari</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Government Schemes</h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Information on major central and state government welfare programs.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -670,7 +685,7 @@ export default function LandingPage() {
               <span className="text-xs font-black uppercase tracking-wider">Notice Board</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Latest Notices</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Panchayat ki taza soochnayen aur ghoshnayen</p>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Recent announcements and official notifications from the Panchayat.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -703,7 +718,7 @@ export default function LandingPage() {
               <span className="text-xs font-black uppercase tracking-wider">Emergency</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Emergency Services</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Aapaat sthiti me turant sampark karein</p>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Contact immediately in case of any emergency situations.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
@@ -734,7 +749,7 @@ export default function LandingPage() {
               <span className="text-xs font-black uppercase tracking-wider">Village Gallery</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Our Village</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Gram Panchayat Sarahi ki jhalak</p>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">A glimpse into the vibrant community of Your Gram Panchayat.</p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -765,8 +780,8 @@ export default function LandingPage() {
               <HiOutlineHandThumbUp className="w-4 h-4" />
               <span className="text-xs font-black uppercase tracking-wider">Citizen Feedback</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Naagrik Samiksha</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Hamare portal ke baare me logon ki raay</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Citizen Feedback</h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">What the community says about our digital portal.</p>
           </motion.div>
 
           <div className="relative max-w-3xl mx-auto">
@@ -820,7 +835,7 @@ export default function LandingPage() {
             <motion.div variants={slideInLeft} className="text-white space-y-6">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight">Download Our <br />Mobile App</h2>
               <p className="text-lg text-emerald-100 font-medium max-w-md">
-                Sabhi panchayat sevayen ab aapke mobile me. Download karein aur ghar baithe sevaon ka labh uthayein.
+                All Panchayat services are now on your mobile device. Download the app to access services conveniently from your home.
               </p>
               <div className="flex flex-wrap gap-4">
                 <button className="inline-flex items-center gap-3 px-6 py-4 bg-black rounded-2xl hover:bg-slate-900 transition-all hover:-translate-y-1 shadow-xl">
@@ -847,7 +862,7 @@ export default function LandingPage() {
                   <div className="w-20 h-20 bg-gradient-to-br from-[#138808] to-emerald-600 rounded-3xl flex items-center justify-center mb-4 shadow-xl">
                     <FaLandmark className="w-10 h-10 text-white" />
                   </div>
-                  <h4 className="text-base font-black text-slate-900 text-center">GP Sarahi</h4>
+                  <h4 className="text-base font-black text-slate-900 text-center">GP Your Village</h4>
                   <p className="text-[10px] text-slate-500 font-bold text-center mt-1">Digital Village Portal</p>
                   <div className="mt-6 w-full space-y-2">
                     {["Certificates", "Complaints", "Schemes", "Notices"].map((item, i) => (
@@ -876,8 +891,8 @@ export default function LandingPage() {
               <HiOutlineEnvelope className="w-4 h-4" />
               <span className="text-xs font-black uppercase tracking-wider">Contact Us</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Sampark Karein</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Kisi bhi sahaayata ke liye panchayat karyaalay se sampark karein</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Contact Us</h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">Get in touch with the Panchayat office for any assistance or inquiries.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -890,7 +905,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h4 className="font-black text-slate-900 mb-1">Panchayat Address</h4>
-                    <p className="text-sm text-slate-600 font-medium">Gram Panchayat Bhawan,<br />Sarahi, Madhya Pradesh<br />PIN: 485001</p>
+                    <p className="text-sm text-slate-600 font-medium">Gram Panchayat Bhawan,<br />Your Village, Your State<br />PIN: 485001</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -908,7 +923,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h4 className="font-black text-slate-900 mb-1">Email</h4>
-                    <p className="text-sm text-slate-600 font-medium">sarahi@mp.gov.in</p>
+                    <p className="text-sm text-slate-600 font-medium">contact@yourpanchayat.gov.in</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -935,21 +950,21 @@ export default function LandingPage() {
             <motion.div variants={slideInRight}>
               <div className="bg-white rounded-3xl border border-slate-100 p-8 shadow-xl shadow-slate-200/50">
                 <h3 className="text-xl font-black text-slate-900 mb-6">Send us a Message</h3>
-                <form className="space-y-5" onSubmit={e => { e.preventDefault(); alert("Aapka sandesh bhej diya gaya hai!"); }}>
+                <form className="space-y-5" onSubmit={handleContactSubmit}>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Full Name</label>
-                    <input type="text" placeholder="Aapka naam" required className="w-full !bg-slate-50 !border-slate-200 !rounded-2xl !px-5 !py-4 text-sm font-semibold" />
+                    <input type="text" placeholder="Your name" required className="w-full !bg-slate-50 !border-slate-200 !rounded-2xl !px-5 !py-4 text-sm font-semibold" value={contactForm.name} onChange={e => setContactForm({ ...contactForm, name: e.target.value })} />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Mobile Number</label>
-                    <input type="tel" placeholder="10 digit mobile number" required className="w-full !bg-slate-50 !border-slate-200 !rounded-2xl !px-5 !py-4 text-sm font-semibold" />
+                    <input type="tel" placeholder="10 digit mobile number" required className="w-full !bg-slate-50 !border-slate-200 !rounded-2xl !px-5 !py-4 text-sm font-semibold" value={contactForm.mobile} onChange={e => setContactForm({ ...contactForm, mobile: e.target.value })} />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Message</label>
-                    <textarea rows={4} placeholder="Aapka sandesh likhein..." required className="w-full !bg-slate-50 !border-slate-200 !rounded-2xl !px-5 !py-4 text-sm font-semibold !min-h-[120px] resize-none" />
+                    <textarea rows={4} placeholder="Write your message here..." required className="w-full !bg-slate-50 !border-slate-200 !rounded-2xl !px-5 !py-4 text-sm font-semibold !min-h-[120px] resize-none" value={contactForm.message} onChange={e => setContactForm({ ...contactForm, message: e.target.value })} />
                   </div>
-                  <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#138808] to-emerald-600 text-white text-sm font-bold rounded-2xl hover:shadow-xl hover:shadow-emerald-500/25 transition-all hover:-translate-y-0.5 active:translate-y-0">
-                    Send Message
+                  <button type="submit" disabled={contactStatus === "submitting"} className="w-full py-4 bg-gradient-to-r from-[#138808] to-emerald-600 text-white text-sm font-bold rounded-2xl hover:shadow-xl hover:shadow-emerald-500/25 transition-all hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50">
+                    {contactStatus === "submitting" ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               </div>
@@ -972,11 +987,11 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <p className="font-black text-lg text-white leading-tight">Gram Panchayat</p>
-                  <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Sarahi, M.P.</p>
+                  <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Your Village, State</p>
                 </div>
               </div>
               <p className="text-sm text-slate-400 font-medium leading-relaxed mb-6">
-                Digital India initiative ke tahat gaon ki sarkar aur sevaon ko online laya gaya hai.
+                Bringing village governance and services online as part of the Digital India initiative.
               </p>
               <div className="flex items-center gap-2">
                 <a href="#" className="w-10 h-10 bg-white/5 hover:bg-green-600 rounded-xl flex items-center justify-center transition-colors" aria-label="WhatsApp">
@@ -1046,7 +1061,7 @@ export default function LandingPage() {
           {/* Bottom Bar */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-slate-500 font-medium text-center md:text-left">
-              © 2026 Digital Gram Panchayat Portal — Sarahi, Madhya Pradesh. All Rights Reserved.
+              © 2026 Digital Gram Panchayat Portal — Your Village, Your State. All Rights Reserved.
             </p>
             <p className="text-sm text-slate-500 font-medium">
               Powered by <span className="text-emerald-400 font-bold">Digital India</span> 🇮🇳

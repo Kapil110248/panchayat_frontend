@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/Input";
 import { Settings, Shield, Bell, Globe, User, Save } from "lucide-react";
 
 export default function AdminSettings() {
+
   return (
     <div className="space-y-8">
       <div>
@@ -19,10 +20,10 @@ export default function AdminSettings() {
                <CardHeader title="General Configuration" subtitle="Village name and primary contact details" />
                <CardContent className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                     <Input label="Gram Panchayat Name" defaultValue="Sarahi" />
+                     <Input label="Gram Panchayat Name" defaultValue="Your Village" />
                      <Input label="District" defaultValue="Rewa" />
                   </div>
-                  <Input label="Official Email ID" defaultValue="panchayat.sarahi@mp.gov.in" />
+                  <Input label="Official Email ID" defaultValue="contact@yourpanchayat.gov.in" />
                   <div className="pt-4">
                      <Button className="gap-2 bg-primary"><Save className="w-4 h-4" /> Save Changes</Button>
                   </div>

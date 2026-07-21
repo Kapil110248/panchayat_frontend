@@ -17,7 +17,9 @@ import {
   CreditCard,
   Calendar,
   Search,
-  Filter
+  Filter,
+  Eye,
+  X
 } from "lucide-react";
 
 export default function RegistrationRequestsPage() {
@@ -270,46 +272,55 @@ export default function RegistrationRequestsPage() {
                 </div>
 
                 {/* Action Buttons */}
-                {request.status === "pending" && (
-                  <div className="flex lg:flex-col gap-3 lg:w-48">
-                    <Button
-                      onClick={() => handleApprove(request.id)}
-                      className="flex-1 lg:flex-none bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl py-6 gap-2"
-                    >
-                      <UserCheck className="w-5 h-5" />
-                      Approve
-                    </Button>
-                    <Button
-                      onClick={() => handleReject(request.id)}
-                      variant="outline"
-                      className="flex-1 lg:flex-none border-rose-200 text-rose-600 hover:bg-rose-50 rounded-xl py-6 gap-2"
-                    >
-                      <UserX className="w-5 h-5" />
-                      Reject
-                    </Button>
-                  </div>
-                )}
-
-                {request.status !== "pending" && (
-                  <div className="lg:w-48 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2 ${
-                        request.status === "approved" 
-                          ? "bg-emerald-100" 
-                          : "bg-rose-100"
-                      }`}>
-                        {request.status === "approved" ? (
-                          <CheckCircle2 className="w-8 h-8 text-emerald-600" />
-                        ) : (
-                          <XCircle className="w-8 h-8 text-rose-600" />
-                        )}
-                      </div>
-                      <p className="text-xs font-bold text-slate-400">
-                        {request.reviewed_at ? new Date(request.reviewed_at).toLocaleDateString('en-IN') : ""}
-                      </p>
+                <div className="flex flex-col gap-3 lg:w-48">
+                  {request.status === "pending" && (
+                    <div className="flex lg:flex-col gap-3">
+                      <Button
+                        onClick={() => handleApprove(request.id)}
+                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl py-6 gap-2"
+                      >
+                        <UserCheck className="w-5 h-5" />
+                        Approve
+                      </Button>
+                      <Button
+                        onClick={() => handleReject(request.id)}
+                        variant="outline"
+                        className="flex-1 border-rose-200 text-rose-600 hover:bg-rose-50 rounded-xl py-6 gap-2"
+                      >
+                        <UserX className="w-5 h-5" />
+                        Reject
+                      </Button>
                     </div>
-                  </div>
-                )}
+                  )}
+                  {request.status !== "pending" && (
+                    <div className="flex items-center justify-center mb-1">
+                      <div className="text-center">
+                        <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2 ${
+                          request.status === "approved" 
+                            ? "bg-emerald-100" 
+                            : "bg-rose-100"
+                        }`}>
+                          {request.status === "approved" ? (
+                            <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+                          ) : (
+                            <XCircle className="w-8 h-8 text-rose-600" />
+                          )}
+                        </div>
+                        <p className="text-xs font-bold text-slate-400">
+                          {request.reviewed_at ? new Date(request.reviewed_at).toLocaleDateString('en-IN') : ""}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  <Button
+                    onClick={() => setSelectedRequest(request)}
+                    variant="outline"
+                    className="w-full border-blue-200 text-blue-600 hover:bg-blue-50 rounded-xl py-6 gap-2"
+                  >
+                    <Eye className="w-5 h-5" />
+                    Details
+                  </Button>
+                </div>
               </div>
             </Card>
           ))
@@ -332,6 +343,126 @@ export default function RegistrationRequestsPage() {
           <div className="bg-rose-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 font-medium">
             <XCircle className="w-5 h-5 text-white" />
             {error}
+          </div>
+        </div>
+      )}
+      {/* Details Modal */}
+      {selectedRequest && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="flex justify-between items-center p-6 border-b border-slate-100 bg-slate-50">
+              <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
+                <User className="w-5 h-5 text-primary" />
+                Applicant Details
+              </h2>
+              <button 
+                onClick={() => setSelectedRequest(null)}
+                className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto max-h-[70vh]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Full Name</label>
+                    <p className="font-bold text-slate-900">{selectedRequest.full_name}</p>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Father's Name</label>
+                    <p className="font-bold text-slate-900">{selectedRequest.father_name || "N/A"}</p>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Date of Birth</label>
+                    <p className="font-bold text-slate-900">{new Date(selectedRequest.date_of_birth).toLocaleDateString('en-IN')}</p>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Gender</label>
+                    <p className="font-bold text-slate-900 capitalize">{selectedRequest.gender}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Mobile Number</label>
+                    <p className="font-bold text-slate-900">{selectedRequest.mobile}</p>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email Address</label>
+                    <p className="font-bold text-slate-900">{selectedRequest.email}</p>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Aadhaar Number</label>
+                    <p className="font-bold text-slate-900">{selectedRequest.aadhaar_number}</p>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</label>
+                    <span className={`inline-flex items-center gap-1 px-3 py-1 mt-1 rounded-full text-[10px] font-black uppercase ${
+                      selectedRequest.status === "pending" ? "bg-amber-100 text-amber-700" : 
+                      selectedRequest.status === "approved" ? "bg-emerald-100 text-emerald-700" : 
+                      "bg-rose-100 text-rose-700"
+                    }`}>
+                      {selectedRequest.status}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="md:col-span-2 space-y-4 bg-slate-50 p-4 rounded-xl border border-slate-100 mt-2">
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Complete Address</label>
+                    <p className="font-bold text-slate-900">{selectedRequest.address}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Village / Town</label>
+                      <p className="font-bold text-slate-900">{selectedRequest.village}</p>
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">PIN Code</label>
+                      <p className="font-bold text-slate-900">{selectedRequest.pincode}</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div className="p-6 bg-slate-50 border-t border-slate-100 flex gap-4">
+              {selectedRequest.status === "pending" && (
+                <>
+                  <Button
+                    onClick={() => {
+                      handleApprove(selectedRequest.id);
+                      setSelectedRequest(null);
+                    }}
+                    className="flex-1 rounded-xl py-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+                  >
+                    <UserCheck className="w-5 h-5 mr-2" /> Approve Request
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleReject(selectedRequest.id);
+                      setSelectedRequest(null);
+                    }}
+                    variant="outline"
+                    className="flex-1 rounded-xl py-6 border-rose-200 text-rose-600 hover:bg-rose-50 font-bold"
+                  >
+                    <UserX className="w-5 h-5 mr-2" /> Reject
+                  </Button>
+                </>
+              )}
+              {selectedRequest.status !== "pending" && (
+                <Button 
+                  onClick={() => setSelectedRequest(null)}
+                  className="w-full rounded-xl py-6 font-bold"
+                >
+                  Close Details
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       )}

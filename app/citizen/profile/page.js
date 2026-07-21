@@ -106,7 +106,7 @@ export default function ProfilePage() {
           dob: res.user.date_of_birth ? new Date(res.user.date_of_birth).toISOString().split('T')[0] : "",
           gender: res.profile.gender || "male",
           address: res.user.address || "",
-          village: res.profile.village || "Sarahi",
+          village: res.profile.village || "Your Village",
           pincode: res.profile.pincode || "",
           aadhaar_number: res.profile.aadhaar_number || "",
           password: "",
