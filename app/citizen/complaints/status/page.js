@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { MessageSquare, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { api } from "@/lib/api";
+import { api, BACKEND_URL } from "@/lib/api";
 
 export default function MyComplaints() {
   const [complaints, setComplaints] = useState([]);

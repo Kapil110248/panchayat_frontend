@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { MessageSquare, Clock, CheckCircle, AlertCircle, Search, Filter, Shield, X, Phone } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, BACKEND_URL, API_BASE_URL } from "@/lib/api";
 
 export default function AdminComplaints() {
   const [complaints, setComplaints] = useState([]);

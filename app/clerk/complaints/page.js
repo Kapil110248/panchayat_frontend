@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { MessageSquare, CheckCircle, AlertCircle, Search, RefreshCw, X, ChevronDown } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, BACKEND_URL, API_BASE_URL } from "@/lib/api";
 
 const STATUS_CONFIG = {
   "open":        { label: "Open",        color: "text-rose-600",    bg: "bg-rose-50",    badge: "bg-rose-100 text-rose-700" },

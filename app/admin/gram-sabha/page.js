@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Calendar, MapPin, Users, Plus, FileText, CheckCircle, Send, Download, Eye, Clock, X, XCircle, ChevronDown, ChevronUp } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, BACKEND_URL, API_BASE_URL } from "@/lib/api";
 
 export default function AdminGramSabha() {
   const [meetings, setMeetings] = useState([]);

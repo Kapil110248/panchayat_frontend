@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { User, Mail, Phone, MapPin, Award, Calendar, ShieldAlert, Edit, Star, X, CheckCircle, Camera, Loader2 } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, API_BASE_URL } from "@/lib/api";
 
 export default function AdminProfile() {
   const [adminData, setAdminData] = useState({

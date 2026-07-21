@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Users, Search, Download, MapPin, Mail, Phone, Calendar, X } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, BACKEND_URL } from "@/lib/api";
 
 export default function ClerkDirectory() {
   const [citizens, setCitizens] = useState([]);

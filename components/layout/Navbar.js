@@ -5,7 +5,7 @@ import { Bell, Search, User, Menu, Command, LogOut, FileText, Users, Shield, Bar
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { api } from "@/lib/api";
+import { api, BACKEND_URL } from "@/lib/api";
 
 const searchItems = [
   { name: "Dashboard", path: "/admin/dashboard", icon: BarChart, keywords: "dashboard home overview analytics" },

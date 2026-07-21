@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { BookOpen, CheckCircle, ArrowRight, Home, IndianRupee, Tractor, GraduationCap, X, AlertCircle, FileText } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, API_BASE_URL } from "@/lib/api";
 
 const IconMap = {
   "Home": Home,

@@ -6,7 +6,7 @@ import {
   Edit3, X, Save, Lock, Eye, EyeOff, MapPin, FileText,
   CheckCircle2, KeyRound, Sparkles, Building2, Clock
 } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, BACKEND_URL } from "@/lib/api";
 
 const BACKEND = BACKEND_URL;
 

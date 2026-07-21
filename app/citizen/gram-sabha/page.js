@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Calendar, MapPin, MessageSquare, Download, AlertCircle, FileText, Send, Eye, CheckCircle, XCircle, Clock, ChevronDown, ChevronUp } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, BACKEND_URL } from "@/lib/api";
 
 export default function CitizenGramSabha() {
   const [meetings, setMeetings] = useState([]);

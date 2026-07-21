@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Calendar, MapPin, Users, CheckCircle, Clock, UserCheck, X, Search, FileText, ChevronRight, AlertCircle, Download } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, API_BASE_URL } from "@/lib/api";
 
 export default function ClerkGramSabha() {
   const [meetings, setMeetings] = useState([]);

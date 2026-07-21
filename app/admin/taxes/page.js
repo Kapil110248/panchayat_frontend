@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { IndianRupee, TrendingUp, AlertTriangle, CheckCircle, PieChart, Download, Plus, Clock, Check, X, History, Settings, Upload } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, API_BASE_URL } from "@/lib/api";
 
 export default function AdminTaxes() {
   const calculateTaxPenalty = (tax) => {

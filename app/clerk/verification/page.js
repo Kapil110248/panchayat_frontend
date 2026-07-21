@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { FileText, CheckCircle, XCircle, ExternalLink, Clock, Search, X, RefreshCw, UploadCloud, Send } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, API_BASE_URL } from "@/lib/api";
 
 const STATUS_CONFIG = {
   pending:   { label: "Pending",   className: "bg-blue-100 text-blue-700"   },

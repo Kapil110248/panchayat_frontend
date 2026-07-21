@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { User, Phone, Mail, MapPin, Shield, Camera, Edit3, Award, Users, FileText, ChevronRight, X, AlertCircle, CheckCircle } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, API_BASE_URL } from "@/lib/api";
 
 export default function ProfilePage() {
   const [profileData, setProfileData] = useState(null);

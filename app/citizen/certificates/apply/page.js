@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Input, Select } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { FileText, Upload, AlertCircle, CheckCircle2, Loader2, X } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, API_BASE_URL } from "@/lib/api";
 
 const CERTIFICATE_TYPES = [
   { label: "Income Certificate (Aay Praman Patra)", value: "income" },

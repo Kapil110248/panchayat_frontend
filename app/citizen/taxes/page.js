@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { CreditCard, Receipt, ShieldCheck, HelpCircle, AlertCircle, Clock, CheckCircle, AlertTriangle, X, QrCode } from "lucide-react";
 import { SiPaytm } from "react-icons/si";
-import { api } from "@/lib/api";
+import { api, BACKEND_URL } from "@/lib/api";
 
 export default function CitizenTaxes() {
   const calculateTaxPenalty = (tax) => {
