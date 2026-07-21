@@ -179,8 +179,6 @@ export default function LoginPage() {
                     type="button"
                     onClick={() => {
                       setRole(r);
-                      setEmail(`${r}@gram.in`);
-                      setPassword("password123");
                     }}
                     className={`flex-1 py-2.5 text-[10px] font-black rounded-xl capitalize transition-all duration-300 ${
                       role === r
